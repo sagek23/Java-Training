@@ -1,0 +1,59 @@
+create table publisher(pnum number primary key, pname varchar(20), paddr varchar(20), ptel varchar(20));
+
+create table book(bnum number primary key, bname varchar(20), writer varchar(20), price number, pnum number references publisher(pnum));
+
+create table customer(cnum number primary key, cname varchar(20), ctel varchar(20), caddr varchar(50));
+
+create table orders(onum number primary key, cnum number references customer(cnum), sum number);
+
+create table orders_d(dnum number primary key, bnum number references book(bnum), amount number, dprice number, onum number references orders(onum));
+
+
+insert into customer values(1, '홍길동', '111', '서울');
+insert into customer values(2, '이순신', '222', '인천');
+insert into customer values(3, '유관순', '333', '충남');
+
+insert into publisher values(1, '민음사', '서울', '02-333-1111');
+insert into publisher values(2, '문학동네', '경기', '02-111-2222');
+
+insert into book values(1, '아몬드', '손원창', 12000, 1);
+insert into book values(2, '숨', '베르베르', 16000, 1);
+insert into book values(3, '어린왕자', '생떽쥐베리', 6000, 2);
+insert into book values(4, '고양이', '베르베르', 14000, 2);
+insert into book values(5, '셜록홈즈', '아서 코난도일', 45000, 2);
+
+
+ed ff: 컬럼 포맷 편집
+내용 ex)
+colum cnum format 9999;
+colum cname format a10;
+
+연습) '홍길동' 고객이 '아몬드' 2권, '고양이' 3권, '셜록홈즈' 1권을 구매하기 위한 sql문을 작성
+"insert into orders value(seq_orders, 1, 111000);"
+
+"insert into orders_d value(1, 1, 2, 24000, seq_order);"
+"insert into orders_d value(2, 4, 3, 42000, seq_order);"
+"insert into orders_d value(3, 5, 1, 45000, seq_order);"
+
+
+create sequence order_d;
+
+
+max 함수
+컬럼의 값 중 가장 큰 값을 알려준다/
+
+nvl 함수
+컬럼의 값이 만약 null이라면 다른 값으로 설정.
+
+
+주문번호 중에 가장 큰값을 얻어오기
+select max(onum) from orders;
+
+주문 건수가 하나도 없다면 null을 반환.
+null에는 어떤 연산도 할 수 없다.
+
+select nvl(max(onum),0) from orders;
+null이라면 0을 반환. 
+
+select nvl(max(onum),0)+1 from orders;
+null이라면 0을 반환하는데 여기에 1을 더하여 반환. 

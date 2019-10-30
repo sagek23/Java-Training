@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div{
+		border: 1px solid black;
+		margin: 10px;
+	}
+</style>
+<script type="text/javascript">
+window.onload = function () {
+	var div = document.getElementById("div");
+	div.onclick = function (e) {
+		alert('b');
+		var event = e || window.event;
+		event.cancleBubble = true;
+		if(event.stopPropagation)
+		{
+			event.stopPropagation();
+		}
+	}
+}
+</script>
+</head>
+<body>
+	<div onclick="alert('a')">안녕
+		<div id="div">추석</div> 
+	</div>
+	
+</body>
+</html>

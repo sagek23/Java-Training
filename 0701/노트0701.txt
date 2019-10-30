@@ -1,0 +1,120 @@
+<날짜관련 함수>
+to_char(날짜, 형식): 날짜를 문자로 변환
+to_date(문자, 형식): 문자를 날짜로 변환
+
+add_months(날짜, 숫자): 날짜에 개월수를 더한다.
+
+last_day(날짜): 그 날짜가 있는 달의 마지막 날을 반환.
+
+sysdate: 오늘 날짜를 반환.
+
+months_between(날짜1, 날짜2): 두 날짜 사이의 개월 수를 반환(날짜1이 최근의 날짜)
+
+연습) 마당서점은 주문일로부터 10일후 매출을 확정. 각 주문의 확정일자를 출력
+
+select orderkid, orderdate 주문일, orderdate+10 확정일 from orders;
+
+연습) 마당서점이 2014년 7월 7일에 주문받은 도서의 주문번호, 주문일, 고객번호, 
+도서번호를 모두 출력. 단, 주문일은 'yyyy-mm-dd요일' 형태로 출력.
+select orderkid, to_char(orderdate, 'yyyy-mm-dd day') 주문일, custid, bookid from orders 
+where orderdate = '2014/07/07';
+
+
+create table Mybook (bookid number primary key, price number);
+insert into Mybook values (1,10000);
+insert into Mybook values (2,20000);
+insert into Mybook values (3,null);
+
+연습) 모든 도서의 가격에 100을 더한 값을 출력
+select bookid, price+100 price from mybook;
+
+연습) 도서번호가 3번인 도서의 가격에 100원을 더하여 출력
+select bookid, price+100 from mybook where bookid=3;
+
+**컬럼의 값이 null인 경우는 연산이 되지 않는다.
+만약 null인 경우에 특정한 임의의 값으로 대체 후에 연산하기를 원한다면
+nvl함수를 이용한다. 
+
+연습) 모든 도서의 가격에 100원을 더하여 출력. 만약 도서의 가격이 정해지지
+않았다면, 0으로 설정하여 연산
+select bookid, nvl(price,0)+100 from mybook;
+
+**집계함수 sum, avg, count는 null인 것은 제외.
+
+select sum(price) from my book;
+select avg(price) from my book;
+select sum(price) from my book;
+
+select count(price)from mybook;
+select count(*)from mybook;
+select count(bookid)from mybook;
+
+select sum(price), avg(price), count(price), count(*) from mybook;
+
+연습) 책번호가 4번 이상인 도서의 가격을 출력하세요. 
+select price from mybook where  bookid >=4;
+연습) 책번호가 4번 이상인 도서의 평균가격을 출력하세요
+select avg(price) from mybook where bookid >=4;
+
+연습) 책번호가 4번 이상인 도서의 평균가격을 출력.
+만약 조건에 맞는 값이 없으면 0을 출력.
+select nvl(avg(price),0) from myboiok where bookid>=4;
+
+연습) 책번호중에 가장 큰값에 더하기 1한 결과를 출력
+만약 null이면 1을 출력하도록 한다. 
+select nvl(max(bookid),0)+1 from mybook;
+
+연습) 책값이 null이 아닌 데이터가 모두 몇개인지 출력
+어떤 컬럼의 값이 null인 것을 판별하기 위하여 = 연산자라 아니라
+is null을 사용
+select count(*) from mybook where price is not null;
+
+연습) 책값이 null인 데이터가 모두 몇개인지 출력
+select count(*) from mybook where price is null;
+
+연습) 책값이 null이 아닌 도서의 정보를 출력
+select * from mybook where price is not null;
+
+연습) 모든 고객의 이름, 전화번호 출력. 단 전화번호가 없는 사람은
+연락처 없음으로 출력
+select cname,nvl(phone, '연락처없음') from customer;
+
+create table emp10
+	as select eno, ename, sal,comm
+	from emp 
+	where dno=300;
+
+select * from emp10;
+
+연습) 모든 사원의 이름과 연봉을 출력. 급여와 수당이 결정되지 않은 사람은
+평균값으로 대체 후 연산
+select ename, (nvl(sal,(select avg(sal) from emp)))+
+(nvl(comm,((select avg(comm) from emp))))*12 연봉 from emp10;
+
+연습) 모든 사원의 이름과 연봉을 출력. 급여와 수당이 결정되지 않은 사람은
+최소값으로 대체 후 연산
+select ename, (nvl(sal,(select min(sal) from emp)))+
+(nvl(comm,((select min(comm) from emp))))*12 연봉 from emp10;
+
+<rownum>
+select한 결과의 각 행에 순서대로 번호를 붙인다. 
+
+연습) 대한민국에 거주하는 고객의 이름과 주소를 출력.
+select rownum, name, address from customer where address like '대한민국%';
+
+연습) 대한민국에 거주하는 사람들 중에 두명의 이름과 주소를 출력.
+select rownum, name,address from customer where address like '대한민국%' and rownum<=2;
+
+연습) 책값이 가장 비싼 도서 3권의 책이름, 출판사, 가격을 출력.
+select rownum, bookname,publisher, price from book where rownum <=3 order by price desc;
+
+select * from book order by price desc;
+
+select rownum, bookname,publisher, price 
+from (select * from book where price is not null order by price desc) where rownum <=3;
+
+**rownum 사용시에 주의점!
+order  by한 결과를 서브쿼리로하여 행 번호를 붙여야한다.
+
+**서브쿼리를 사용하지않고 rownum과 order by를 같이 사용하면 행번호를 먼저 붙이고 
+order by를 수행. 

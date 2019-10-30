@@ -1,0 +1,9 @@
+class ConditionOperatorTest 
+{
+	public static void main(String[] args) 
+	{
+		int age = 28;
+		String str = (age>=30)?"YES":"NO";
+		System.out.println(str);
+	}
+}

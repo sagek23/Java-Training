@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goods">
+  <select id="selectAll" resultType="goodsVo">
+    select * from goods
+  </select>
+  <select id="getCount" resultType="java.lang.Integer">
+  	select count(*) from goods
+  </select>
+  <select id="selectPage" resultType="goodsVo">
+  	select * from (select rownum n, no, name, price, fname from goods) a
+  	where a.n between #{start} and #{end}
+  </select>
+  <update id="updateQty">
+  	update goods set qty = qty - #{qty} where no=#{goods_no}
+   </update>
+</mapper>

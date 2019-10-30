@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="b" class="com.bit.exam06.Book">
+		<property name="bookid" value="10"/>
+		<property name="bookname" value="재미있는 자바"/>
+		<property name="publisher" value="비트캠프"/>
+		<property name="price" value="15000"/>
+	</bean>
+	<bean id="c" class="com.bit.exam06.Customer" >
+		<property name="custid" value="10"/>
+		<property name="name" value="홍길동"/>
+		<property name="address" value="마포구 신수동"/>
+		<property name="phone" value="010-2456-5344"/>
+	</bean>
+	<bean id="bs" class="com.bit.exam06.BookStore">
+		<property name="book" ref="b"/>
+		<property name="cust" ref="c"/>
+	</bean>
+</beans>

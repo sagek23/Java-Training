@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>새글쓰기</h2>
+	<form action="bbsInsert.jsp" method="get">
+	제목:<input type="text" name="title" size="15" maxlength="30" required="required"><br>
+	작성자: <input type="text" name="id" required="required"><br>
+	암호: <input type="password" name="pwd" required="required"><br>
+	내용: <br>
+	<textarea rows="10" cols="80" name="contents" required="required"></textarea><br>
+	<input type="submit" value="등록">
+	</form>
+</body>
+</html>

@@ -1,0 +1,14 @@
+class  WhileTest5
+{
+	public static void main(String[] args) 
+	{
+		int i = 1;
+		while (i<=3)
+		{
+			i++; //iÁõ°¡ 2
+			System.out.println(i);
+			
+		}
+		System.out.println(i);
+	}
+}

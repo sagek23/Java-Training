@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	var arr = ['ball1.jpg', 'cloth1.jpg', 'shoe1.jpg', 'stock1.jpg'];
+	
+	var i = 0;
+	setInterval(function () {
+		$('#g').attr('src', arr[i]);
+		i++;
+		if(i>=arr.length)
+		{
+			i=0;
+		}
+	},1000);
+});
+</script>
+</head>
+<body>
+<img  id="g">
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="book">
+	<update id="updateBook">
+		update book set bookname=#{bookname}, publisher =#{publisher}, price =${price} where bookid =#{bookid}
+	</update>
+	<insert id="insertBook">
+  		insert into book values (#{bookid},#{bookname},#{publisher},#{price})
+	</insert>
+
+	<select id="detailBook" resultType="BookVo">
+		select * from book where bookid = #{bookid}
+	</select>
+  <select id="selectAll" resultType="BookVo">
+    select * from book order by bookid
+  </select>
+  <delete id="deleteBook">
+  	delete book where bookid = #{bookid} <!-- bookid를 HashMap에 실음 -->
+  </delete>
+</mapper>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+	window.onload = function() {
+		var goods = document.getElementById("goods");
+		document.getElementById("ball").onclick = function() {
+			goods.src = "ball1.jpg";	
+			
+		}
+		document.getElementById("uni").onclick = function() {
+			goods.src = "cloth1.jpg";	
+			
+		}
+		document.getElementById("shoe").onclick = function() {
+			goods.src = "shoe1.jpg";	
+		
+		}
+		document.getElementById("stocking").onclick = function() {
+			goods.src = "stock1.jpg";	
+
+		}
+		
+	}
+</script>
+</head>
+<body>
+<h2>원하는 상품을 선택하세요</h2>
+<img id="goods" src="ball1.jpg">
+<button id="ball">축구공</button>
+<button id="uni">유니폼</button>
+<button id="shoe">축구화</button>
+<button id="stocking">스타킹</button>
+</body>
+</html>

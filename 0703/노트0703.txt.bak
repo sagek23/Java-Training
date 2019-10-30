@@ -1,0 +1,131 @@
+연습) 김연아에게는 어떤 책을 추천하면 구매할 확률이 높을까?
+
+-김연아가 구매한 책 중에 가장 많이 구매한 고객의 id를 검색
+==>A
+select b.bookid, c.custid, bookname from orders o, 
+book b, customer c where o.bookid =
+b.bookid and o.custid = c.custid and name = '김연아';
+
+-고객id별 구매건수
+select custid, count(o.bookid) from orders o, (select b.bookid from orders o, 
+book b, customer c where o.bookid =
+b.bookid and o.custid = c.custid and name = '김연아') list
+where o.bookid = list.bookid and custid != (select custid from customer where
+name ='김연아') group by custid;
+
+select o.custid, name, bookname from orders o, customer c, book b
+where o.custid = c.custid and o.bookid = b.bookid and b.bookid = 10;
+
+select rownum, name from 
+(select o.custid, name, bookname from orders o, 
+customer c, book b where o.custid = c.custid and 
+o.bookid = b.bookid and b.bookid = 10) where rownum <2;
+
+select custid from 
+(select o.custid, name, bookname from orders o, 
+customer c, book b where o.custid = c.custid and 
+o.bookid = b.bookid and b.bookid = 10) where rownum <2;
+
+select bookname from orders o, 
+book b, customer c where o.bookid =
+b.bookid and o.custid = c.custid and name = '장미란';
+
+select bookid from orders where custid in
+(select custid from 
+(select o.custid, name, bookname from orders o, 
+customer c, book b where o.custid = c.custid and 
+o.bookid = b.bookid and b.bookid = 10) where rownum <2);
+
+select orderkid, name, bookname, b.bookid from orders o, customer c, book b
+where o.custid = c.custid and o.bookid = b.bookid;
+
+-A가 구매한 도서 목록-김연아 구매한 도서목록
+select bookname recomend from 
+(select bookname from orders o, 
+book b, customer c where o.bookid = b.bookid and 
+o.custid = c.custid and name = '장미란')
+minus 
+(select bookname from orders o, book b, customer c where o.bookid =
+b.bookid and o.custid = c.custid and name = '김연아');
+
+
+<< all_list - list >>
+(select bookid from 
+orders where custid in (select custid 
+from ( select custid, count(o.bookid)
+from orders o, (select bookid from 
+customer c, orders o
+where c.custid = o.custid and
+name = '김연아' ) list
+where o.bookid = list.bookid and
+custid != (select custid from customer where name='김연아')
+group by custid 
+order by count(o.bookid) desc ) count_list
+where rownum <= 2))
+minus
+(select bookid from 
+customer c, orders o
+where c.custid = o.custid and
+name = '김연아');
+
+
+
+박지성에게 도서추천 (비슷한 책을 산 사람이 없을 때)
+가장 잘 팔리는 책을 추천
+
+책 3권 추천하기
+select bookid, count(*) from orders group 
+by bookid order by count(*) desc;
+
+select bookid from
+(select bookid from 
+(select bookid, count(*) from orders group 
+by bookid order by count(*) desc) where
+rownum <=3)
+minus
+(select bookid from orders o, 
+customer c where o.custid = c.custid 
+and name = '박지성');
+
+select * from ()
+where not exists ();
+
+sql만으로 문제가 해결되지 않을 때는 프로그램으로 문제를 해결
+
+연습) 고객의 이름을 입력받아 그 고객에게 추천할 도서를 출력
+도서명, 가격, 출판사를 출력
+
+select bookname, price, publisher from book where bookid in
+(select bookid from 
+orders where custid in (select custid 
+from ( select custid, count(o.bookid)
+from orders o, (select bookid from 
+customer c, orders o
+where c.custid = o.custid and
+name = '김연아' ) list
+where o.bookid = list.bookid and
+custid != (select custid from customer where name='김연아')
+group by custid 
+order by count(o.bookid) desc ) count_list
+where rownum <= 2))
+minus
+(select bookid from 
+customer c, orders o
+where c.custid = o.custid and
+name = '김연아');
+
+------------------------------------------------------------------------------------
+create table member
+(
+	id varchar2(20) primary key,
+	pwd varchar2(20),
+	name varchar2(20)
+);
+
+Value Object (VO)
+테이블의 레코드 하나를 자바 객체로 만들기 위한 클래스
+
+DataBase Access Object(DAO)
+데이터베이스에 접근하여 레코드를 추가, 수정, 삭제, 검색을 위한 클래스
+
+연습) 회원등록에 필요한 vo와 dao만들기

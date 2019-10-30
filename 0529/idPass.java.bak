@@ -1,0 +1,40 @@
+//사용자에게 아이디와 암호를 입력받아 출력.단 아이디와 암호는 8자 이상일 것.
+import java.util.*;
+class  idPass
+{
+	public static void main(String[] args) 
+	{
+	
+			Scanner sc = new Scanner(System.in);
+			System.out.print("id를 입력하시오==> ");
+			String id = sc.next();
+			System.out.print("패스워드를 입력하시오==> ");
+			String pass = sc.next();
+				while (true)
+		{	
+				if (id.length()<8)
+				{
+					System.out.println("id는 8자 이상이어야 합니다");
+					System.out.print("id를 다시 입력하시오==> ");
+					id = sc.next();
+				}
+		
+			
+				if (pass.length()<8)
+				{
+					System.out.println("패스워드는 8자 이상이어야 합니다");
+					System.out.print("패스워드를 다시 입력하시오==> ");
+					pass = sc.next();
+				}
+		
+				if (id.length()>=8 && pass.length()>=8)
+				{
+					System.out.println("올바르게 입력하였습니다");
+					break;
+				}
+		}
+		System.out.println("id"+id);
+		System.out.println("password"+pass);
+				
+	}
+}

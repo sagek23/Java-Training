@@ -1,0 +1,10 @@
+class StringTest2 
+{
+	public static void main(String[] args) 
+	{
+		String data = "집에 가고싶다";
+		
+		System.out.println(data.length());
+
+	}
+}

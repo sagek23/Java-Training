@@ -1,0 +1,27 @@
+alter table bbs add b_ref number;   서로 관련 있는 글을 그룹화 하기 위한 컬럼
+					부모글: 글번호와 동일
+					답글: 부모글의 b_ref와 동일
+alter table bbs add b_level number; 답글의 깊이를 위한 컬럼. 답글에 대해 또 답글을 작성할 수 있도록
+					부모글: 0
+					답글: 부모글의 b_level+1
+alter table bbs add b_step number; 서로 관련있는 글일 때 글을 출력하기 위한 순서를 위한 컬럼
+					부모글: 0
+					답글: 이미 달려있는 답글에는 b_step을 1씩 증가.
+					      새로운 답글이 부모글+1이 됨
+					      부모들의 b_step+1로 설정
+
+
+
+계층형 게시판을 위하여 추가된 기능을 설명
+
+1)추가된 칼럼 및 설명
+b_ref: 부모글과 그 답글을 그룹화 하기위한 컬럼
+b_level: 부모글에 답글을 작성시 들여쓰기 하기위한 컬럼. 답글에 답글을 작성시 +1되어 들여쓰기 두번
+b_step: 최신 답글 순으로 정렬하기 위한 컬럼. 먼저 작성된 답글은 답글이 생길 수록 b_step의 수가 1씩 증가.
+
+2) vo의 변경.
+b_ref, b_level, b_step 추가
+
+3)dao의 변경된 내용.
+num을 select nvl(max(num),0)+1로 변경, 상세보기 메소드에 b_ref, b_level, b_step값 받아오기 추가.
+b_step업데이트 메소드 추가

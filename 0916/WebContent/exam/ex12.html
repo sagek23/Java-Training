@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = function () {
+	var selTr;
+	var tb = document.getElementById("tb");
+	var name, kr, en, ma;
+	document.getElementById("btnAdd").onclick = function () {
+		
+			
+			name = document.getElementById("name");
+			kr = document.getElementById("kr");
+			en = document.getElementById("en");
+			ma = document.getElementById("ma");
+			
+			var txName = document.createTextNode(name.value);
+			var txKr = document.createTextNode(kr.value);
+			var txEn = document.createTextNode(en.value);
+			var txMa = document.createTextNode(ma.value);
+			
+			var tr = document.createElement("tr");	
+			var td1 = document.createElement("td");	
+			var td2 = document.createElement("td");	
+			var td3 = document.createElement("td");	
+			var td4 = document.createElement("td");	
+			
+			td1.appendChild(txName);
+			td2.appendChild(txKr);
+			td3.appendChild(txEn);
+			td4.appendChild(txMa);
+			
+			tr.appendChild(td1);
+			tr.appendChild(td2);
+			tr.appendChild(td3);
+			tr.appendChild(td4);
+			
+			tb.appendChild(tr);
+			
+			tr.onmouseover = function () {
+				if(this!=selTr)
+					this.style.background = "yellow";
+			}
+			tr.onmouseleave = function () {
+				if(this!=selTr)
+					this.style.background = "white";
+			}
+			tr.onclick = function () {
+				var trs = document.getElementsByTagName("tr");
+				for(var i=0;i<trs.length;i++)
+				{
+					trs[i].style.background = "white";
+				}
+				
+				this.style.background = "red";
+				selTr=this;
+				
+				var tds = this.childNodes;
+				name.value = tds[0].innerHTML
+				kr.value = tds[1].innerHTML
+				en.value = tds[2].innerHTML
+				ma.value = tds[3].innerHTML
+			}
+		
+		}
+		document.getElementById("btnDel").onclick = function () {
+			tb.removeChild(selTr);
+		}
+		
+		document.getElementById("btnUpt").onclick = function () {
+			var tds = selTr.childNodes;
+			tds[0].innerHTML = name.value;
+			tds[1].innerHTML = kr.value;
+			tds[2].innerHTML = en.value;
+			tds[3].innerHTML = ma.value;
+		}
+	}
+</script>
+</head>
+<body>
+	이름: <input type="text" id="name"><br>
+	국어: <input type="text" id="kr"><br>
+	영어: <input type="text" id="en"><br>
+	수학: <input type="text" id="ma"><br>
+	<button id="btnAdd">추가</button>
+	<hr>
+	<table id="tb" border="1" width="80%">
+		<tr>
+			<td>이름</td>
+			<td>국어</td>
+			<td>영어</td>
+			<td>수학</td>
+		</tr>
+	</table>
+	<button id="btnDel">삭제</button>
+	<button id="btnUpt">수정</button>
+</body>
+</html>

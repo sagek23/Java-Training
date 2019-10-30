@@ -1,0 +1,19 @@
+
+/*문자열이 서로 같은지 판별하려면 ==사용불가.
+equals()메소드를 사용해야함*/
+import java.util.*;
+class  StringEquals
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		String name;
+		System.out.print("이름입력 ==> ");
+		name = sc.next();
+
+		if(name == "tiger")
+			System.out.println("tiger입니다");
+		else
+			System.out.println("tiger가 아닙니다");
+	}
+}

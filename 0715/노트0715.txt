@@ -1,0 +1,66 @@
+입출력 java.io
+
+-문자단위의 입출력: 
+ 글자로 출력하고 글자로 읽어들이는 형태. 
+ 메모장같은 프로그램에서 바로 확인이 가능
+  Reader
+  Writer
+
+-바이트 단위의 입출력
+ 그림판에 그림을 그린다거나 소리를 녹음한다거나 문자단위의 입출력
+ 이외의 모든 ㄴ것은 바이트 단위로 입출력을 한다. 메모장에서 확인불가.
+ 그 파일을 만든 프로그램에서 확인가능. 
+  InputStream
+  OutputStream
+
+
+<그림판 만들기>
+JFileChooser: 파일을 "저장"하거나 "열기" 할 때 저장할 파일,
+열어올 파일을 선택할 수 있는 다이얼로그
+
+<JFileChooser 열기>
+JFileChooser jfc;
+jfc.showOpenDialog();
+
+<JFileChooser 저장>
+JFileChooser jfc;
+jfc.showSaveDialog();
+
+<열기나 저장하기 다이얼로그에서 취소를 누르면?>
+-취소하면 열기나 저장하기를 진행하면 안된다.
+showOpenDialog(), showSaveDialog()
+모두 정수를 반환한다. 
+두개의 메소드 모두 "저장", 혹은 "열기"를
+누르면 0을 반환한다. 
+
+int a = jfc.showOpenDialog();
+if(a == 0)
+{
+  파일 열기에 대한 처리
+}
+
+int a = jfc.showSaveDialog();
+if(a == 0)
+{
+  파일 저장에 대한 처리
+}
+
+try {
+	int a = jfc.showOpenDialog(this); //열어올 파일을 선택하도록 다이얼로그를 띄운다
+	if(a==0)
+	{
+		file = jfc.getSelectedFile(); //열어올 파일을 file변수에 담는다. 
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		//객체단위로 읽어들이기위한 ObjectInputStream 객체를 생성한다.
+
+		lp.list = (ArrayList<GraphinInfo>)ois.readObject();
+		//파일로부터 객체를 읽어들여 패널의 list에 담는다. 
+		lp.repaint();
+		//패널을 다시 그려달라고 요청
+		//패널의 paint가 동작
+		ois.close();
+		}
+		} catch (Exception e2) {
+		// TODO: handle exception
+		System.out.println(e2.getMessage());
+	}

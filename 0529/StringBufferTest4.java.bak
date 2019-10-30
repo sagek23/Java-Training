@@ -1,0 +1,14 @@
+class StringBufferTest4
+{
+	public static void send(String msg)
+	{
+		System.out.println("전송한 메세지는 "+msg);
+	}
+
+	public static void main(String[] args) 
+	{
+		send("만두야 안녕");
+		StringBuffer sb = new StringBuffer("Hello");
+		send(sb.toString());
+	}
+}

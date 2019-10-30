@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = function()
+{
+	document.getElementById("btn").onclick = function()
+	{
+		//var hong = document.getElementById("hong");
+		//alert(hong.innerHTML);
+		
+		var arr = document.getElementsByTagName("h1");
+		alert(arr[0].innerHTML);
+	}
+}
+</script>
+</head>
+<body>
+	
+	<h1 id="hong">홍길동</h1>
+	<h1>강감찬</h1>
+	<h1>이순신</h1>
+	<button id="btn">확인</button>
+</body>
+</html>
+
+
+
+
+
+
+
+

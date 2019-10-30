@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+//var email = prompt('이메일을 입력하시오');
+//var id = email.substr(0,email.indexOf("@"));
+
+$(function () {
+	$("#btn").click(function () {
+	var email = $("#email").val();
+	var id = email.substring(0,email.indexOf("@"));
+	$("#id").val(id);
+	});
+	
+	
+	$("#btnAge").click(function () {
+	var ssn = $("#ssn").val();
+	var byear = "19"+ssn.substr(0,2);
+	var today = new Date();
+	var tyear = today.getFullYear();
+	var age = tyear- byear+1;
+	$("#age").val(age);
+	});
+});
+</script>
+</head>
+<body>
+이메일:<input type="text" id="email"><br>
+아이디: <input type="text" id="id"><br>
+<button id="btn">아이디 확인</button>
+<hr>
+주민번호:<input type="text" id="ssn"><br>
+나이: <input type="text" id="age"><br>
+<button id="btnAge">나이 확인</button>
+</body>
+</html>

@@ -1,0 +1,140 @@
+연습) 사원번호가 높은 순으로 정렬하여 상위 3명의 사원번호, 이름을 출력
+select rownum, eno, ename from
+(select * from emp order by eno desc) where rownum <=3;
+
+-rownum으로는 =연산, >= 연산을 할 수 없다/
+-꼭 해야한다면 rownum이 들어간 문장을 서브쿼리로 만든다.
+
+select eno, ename from 
+(select rownum n, eno, ename from
+(select * from emp order by eno desc) where rownum <=3) where n =3;
+
+연습) 근무자가 가장 많은 상위 2개의 부서명을 출력
+select dname from dept, (select rownum, dno 
+from (select dno, count(eno)
+from emp group by dno order by count(eno) desc) 
+where rownum <=2) e where dept.dno =e.dno ;
+
+select rownum, dno from (select dno, count(eno) 
+from emp group by dno order by count(eno) desc) where rownum <=2;
+
+select dname, count from (select dname, count(*) 
+count from emp e, dept d where e.dno = d.dno group 
+by dname order by count(*) desc) where rownum <=2;
+
+
+연습) 판매량이 가장 저조한 2권의 책을 절판하려고한다. 해당 도서의
+도서번호, 도서명, 출판사를 출력하라.
+select bookid, bookname, publisher from book where bookid in 
+(select bookid from (select b.bookid, 
+count(o.bookid) from orders o right outer 
+join book b on o.bookid = b.bookid group by 
+b.bookid order by count(o.bookid)
+) where rownum <=2);  --B
+
+-도서번호별 주문 건수
+select b.bookid, count(o.bookid) from orders o right 
+outer join book b on o.bookid = b.bookid
+group by b.bookid order by count(o.bookid);--A
+
+-판매량 순으로 정렬했을 때 2번째 행번호의 판매량
+
+select count from (select rownum n, bookid, count from (select b.bookid, 
+count(o.bookid) count from orders o right outer 
+join book b on o.bookid = b.bookid group by 
+b.bookid order by count(o.bookid)
+) where rownum <=2) where n = 2;--C
+
+
+-A중에 주문건수가 C에 해당하는 도서번호
+select bookid from (select b.bookid bookid, count(o.bookid) count
+from orders o right outer join book b on o.bookid = b.bookid
+group by b.bookid order by count(o.bookid))
+where count = 
+(select count from (select rownum n, bookid, count from (select b.bookid, 
+count(o.bookid) count from orders o right outer 
+join book b on o.bookid = b.bookid group by 
+b.bookid order by count(o.bookid)
+) where rownum <=2) where n = 2);--D
+
+-book 중에 bookid에 D에 해당하는 도서의 정보를 출력
+select bookid, bookname, publisher from book 
+where bookid in (select bookid from (select b.bookid bookid, count(o.bookid) count
+from orders o right outer join book b on o.bookid = b.bookid
+group by b.bookid order by count(o.bookid))
+where count = 
+(select count from (select rownum n, bookid, count from (select b.bookid, 
+count(o.bookid) count from orders o right outer 
+join book b on o.bookid = b.bookid group by 
+b.bookid order by count(o.bookid)
+) where rownum <=2) where n = 2));
+
+
+연습) 구매건수가 가장 작은 2명에게 3000원 할인 쿠폰을 지급하려 한다.
+대상 고객의 이름, 주소를 출력
+select c.custid, count(o.custid) from orders o right outer join customer c
+on o.custid = c.custid group by c.custid order by count(o.custid);
+
+select rownum n, custid, count from ( select c.custid, 
+count(o.custid) count from orders o right outer join customer c
+on o.custid = c.custid group by c.custid order 
+by count(o.custid)) where rownum <=2;
+
+select custid from (select rownum n, custid, count from ( select c.custid, 
+count(o.custid) count from orders o right outer join customer c
+on o.custid = c.custid group by c.custid order 
+by count(o.custid)) where rownum <=2) where n = 2;
+
+select count from (select rownum n, custid, count from ( select c.custid, 
+count(o.custid) count from orders o right outer join customer c
+on o.custid = c.custid group by c.custid order 
+by count(o.custid)) where rownum <=2) where n = 2;
+
+select name, address from customer where 
+custid in (select custid from(select c.custid, count(o.custid) count 
+from orders o right outer join customer c
+on o.custid = c.custid group by c.custid order by count(o.custid))
+where count = 
+(select count from (select rownum n, custid, 
+count from ( select c.custid, 
+count(o.custid) count from orders o right outer join customer c
+on o.custid = c.custid group by c.custid order 
+by count(o.custid)) where rownum <=2) where n = 2));
+
+
+연습) 고객 id별로 총 구매액을 출력
+select custid, (select name from customer c where 
+c.custid = o.custid) name, sum(saleprice) from orders o group by custid;
+
+
+연습) 고객번호가 2 이하인 고객의 이름과 구매액을 출력
+select name from customer where custid <=2;
+
+select name, sum(saleprice) from orders o, 
+(select name, custid from customer where custid <=2) cs
+where o.custid  = cs.custid group by name order by sum(saleprice) desc;
+
+연습) 평균주문 금액 이하의 주문에 대하여 주문번호, 금액을 출력
+select orderkid, saleprice from orders where saleprice <= 
+(select avg(saleprice) from orders) order by saleprice;
+
+연습) 평균주문금액 이하의 주문에 대한 주문번호, 고객이름, 책이름을 출력
+select orderkid, name, bookname, saleprice from orders o, customer c, book b where
+o.custid = c.custid and b.bookid = o.bookid and saleprice <=(select avg(saleprice)
+from orders);
+
+연습) 각 고객의 평균 주문금액보다 큰 금액의 주문내역에 대하여 주문번호, 고객번호,
+금액을 출력
+select orderkid, o.custid, saleprice 
+from orders o, (select custid, avg(saleprice) avg
+from orders group by custid) a 
+where o.custid = a.custid and saleprice > a.avg;
+
+select orderkid, custid, saleprice 
+from orders mo where saleprice > 
+(select avg(saleprice) from orders so
+where mo.custid = so.custid);
+
+연습) 출판사별 평균주문금액보다 더 비싼 도서 주문에 대한 정보를 출력
+select publisher, avg(saleprice) from orders o, 
+book b where o.bookid = b.bookid group by publisher;

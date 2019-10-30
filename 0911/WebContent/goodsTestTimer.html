@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	var arr = [{no:100, name:'축구공', price:45000, qty:50, fname:'ball1.jpg'},
+		{no:200, name:'유니폼', price:85000, qty:50, fname:'cloth1.jpg'},
+		{no:300, name:'축구화', price:125000, qty:50, fname:'shoe1.jpg'},
+		{no:400, name:'스타킹', price:15000, qty:50, fname:'stock1.jpg'}];
+$(function () {
+	var i = 0;
+	setInterval(function () {
+		
+		var g= arr[i];
+		$("#fname").attr('src', g.fname);
+		$("#no").text(g.no);
+		$("#name").text(g.name);
+		$("#price").text(g.price);
+		$("#qty").text(g.qty);
+		i++;
+		if(i>=arr.length)
+		{
+			i=0;
+		}
+	}, 1000);
+});
+		
+</script>
+</head>
+<body>
+<h2>상품목록</h2>
+<table id="result" border="1" width="100%">
+	<tr>
+		<td>
+		<img id="fname" src="">
+		</td>
+		<td>
+		상품번호:<span id="no"></span><br>
+		상품명:<span id="name"></span><br>
+		가격:<span id="price"></span><br>
+		수량:<span id="qty"></span><br>
+		</td>
+	</tr>
+</table>
+	
+</body>
+</html>

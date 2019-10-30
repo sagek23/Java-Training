@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.highlight{
+	background: pink;
+}
+</style>
+<script type="text/javascript" 
+src="https://code.jquery.com/jquery-3.4.1.min.js">
+</script>
+<script type="text/javascript">
+	$(function(){
+		$("tr").mouseover(function() {
+			$(this).addClass("highlight");
+		});
+		$("tr").mouseleave(function() {
+			$(this).removeClass("highlight");
+		});
+	});
+</script>
+</head>
+<body>
+	<table width="80%";>
+		<tr><td>홍길동</td><td>서울</td><td>20</td></tr>
+		<tr><td>강감찬</td><td>인천</td><td>30</td></tr>
+		<tr><td>이순신</td><td>경남</td><td>25</td></tr>
+		<tr><td>유관순</td><td>천안</td><td>36</td></tr>
+	</table>
+</body>
+</html>

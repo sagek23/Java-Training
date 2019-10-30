@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="book">
+	
+	<select id="count" resultType="java.lang.Integer">
+	select count(*) from book
+	</select>
+
+  <select id="selectAll" resultType="bookVo">
+    select * from book
+    <if test="keyword!=null and keyword!=''">
+    	<if test="search=='price'">
+    		where price ${oper} #{keyword}
+    	</if>
+    	<if test="search!='price'">
+    		where ${search} like '%'|| #{keyword} || '%' <!-- value에 대한 변수처리는 #으로 그 이외에는 $-->
+    	</if>
+    </if>
+    <if test="sort!=null and sort!=''">
+    order by ${sort}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,15 @@
+class IntAndDouble 
+{
+	public static void main(String[] args) 
+	{
+		byte a = 5;
+		//java에서는 정수값이 오면 int로 취급
+		//별 다른 표현없이 byte의 표현범위안에 있기때문에 byte형에 저장가능
+		System.out.println(a);
+		float b = 5.1f;
+		/*java에서는 소수점이하의 실수값이 오면 기본적으로 double로 취급
+		만약 실수값을 float형의 변수에 저장하려면 반드시 접미사 f를 붙이거나
+		자료형을 변환해야한다.*/
+		System.out.println(b);
+	}
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function(){
+            var id = location.search.substring(location.search.indexOf("=")+1);
+            $("#id").val(id);
+            var data = {id:id};
+            $.getJSON("/blogDetail",data,function(doc){
+                $("#title").val(doc.title);
+                $("#content").val(doc.content);
+            });
+            $("#btnSubmit").click(function(){
+                var data = $("#f").serialize();
+                $.post({url:"/blogUpdate", data:data, success:function(r){
+                    if(r=="1")
+                    {
+                        location.href="dashboard.html";
+                    }
+                }});
+            });
+        });
+    </script>
+</head>
+<body>
+        <div id="contentarea">
+                <div id="innercontentarea">
+                    <h1>Blog Post Creator</h1>
+                    <form id="f" method="POST">
+                        <input type="hidden" id="id" name="id">
+                        <h3>Title</h3>
+                        <p>
+                            <input type="text" name="title" id="title">
+                        </p>
+                        <h3>Content</h3>
+                        <p>
+                            <textarea rows="20" name="content" id="content"></textarea>
+                        </p>
+                        <p>
+                            <input type="button" value="Update" name="btnSubmit" id="btnSubmit">
+                        </p>
+                    </form>
+                </div>
+            </div>
+</body>
+</html>

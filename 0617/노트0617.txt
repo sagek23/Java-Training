@@ -1,0 +1,62 @@
+버튼이 눌렸을 때 어떤 일을 처리하고자 한다면 이벤트 등록을 해야한다.
+
+이벤트 등록을 위한 메소드는 addActionListener() 이다.
+addActionListener 메소드는 매개변수로 ActionListener를 원한다.
+그말은 ActionListener 인터페이스를 구현한 클래스의 객체를 말한다.
+
+<< 자료의 검색 >>
+select 속성명1, 속성명2, .. from 테이블명;
+select * from 테이블명;
+
+
+<< 순서있는 자료의 검색 >>
+select 속성명1, 속성명2 .. from 테이블명 order by 기준컬럼
+
+ex)
+select * from student order by no;
+select * from student order by name;
+
+select * from student order by name,kor;
+
+
+<< 오름차순 내림차순 정렬 >>
+~~~~ order by 기준칼럼 [asc];			오름차순
+~~~  order by 기준칼럼 desc;			내림차순
+
+
+
+<조건에 맞는 자료의 검색>
+select 컬럼1, 컬럼2 from 테이블명;
+ 테이블의 모든 컬럼1과 컬럼2를 출력
+
+select 컬럼1, 컬럼2 from 테이블명 where 조건식;
+ 테이블의 모든 행 중에 조건식을 만족하는 행의 컬럼1과 컬럼2를 출력
+
+ex) select name from member where age = 20;
+나이가 20살인 사람의 이름 출력
+
+
+<자료의 수정>
+update 테이블명 set 컬럼명 = 값;
+ 테이블의 모든 레코드의 컬럼의 값이 변경된다.
+
+update 테이블명 set 컬럼명 = 값  where 조건식;
+
+ex) 모든 멤버의 나이가 10살
+update member set age= 10;
+
+ex)멤버 중에 "홍길동"의 나이를 10살로 수정
+update member set age= 10 where name ='홍길동';
+
+<자료의 삭제>
+delete 테이블명;
+ 테이블의 모든 레코드가 삭제.
+
+ delete 테이블명 where 조건식
+  테이블의 조건식에 맞는 레코드가 삭제
+
+ ex) member 테이블의 모든 자료를 삭제
+delete member;
+
+ex) 이름이 '홍길동'인 회원 삭제
+delete member where name='홍길동';

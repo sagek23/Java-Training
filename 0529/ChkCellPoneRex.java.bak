@@ -1,0 +1,14 @@
+import java.util.*;
+class ChkCellPoneRex
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.print("폰 번호 입력==> ");
+		String phone = sc.next();
+		if (phone.matches("\\d{3}-\\d{4}-\\d{4}"))
+			System.out.println("올바른 핸드폰 번호입니다");
+		else
+			System.out.println("올바른 핸드폰 번호가 아닙니다");
+	}
+}

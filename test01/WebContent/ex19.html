@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	var arr = ['우동', '짜장면', '떡볶이', '마라탕'];
+	var result = $("#result");
+	$("#btn").click(function() {
+
+		$.each(arr, function(idx, data) {
+			var li = $("<li></li>").html(data);
+			$(result).append(li);
+		});
+	})
+	
+});
+</script>
+</head>
+<body>
+	<h2>우리반이 추천하는 점심메뉴</h2>
+	<ul id="result"></ul>
+	<button id="btn">출력</button>
+</body>
+</html>

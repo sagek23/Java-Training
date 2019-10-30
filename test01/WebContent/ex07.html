@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		var arr = [[100, "기획부", "인천"],
+			[200, "영업부", "서울"],
+			[300, "개발1", "제주도"]];
+	
+		document.getElementById("btn").onclick = function() {
+		var str = "";
+		str += "<table>";
+		str += "<tr>";
+		str += "<td>부서번호</td>";			
+		str += "<td>부서이름</td>";			
+		str += "<td>부서위치</td>";			
+		str += "</tr>";
+		
+		for(var i=0;i<arr.length;i++)
+		{	
+			str += "<tr>";	
+			for(var j=0;j<arr[i].length;j++)
+			{
+				str += "<td>"+arr[i][j]+"</td>"
+			}
+			str += "</tr>";
+		}
+		
+		str += "</table>";
+		
+			document.getElementById("result").innerHTML = str;
+		}
+	}
+</script>
+</head>
+<body>
+<h2>부서목록</h2>
+<div id="result"></div>
+<button id="btn">부서목록 출력</button>
+</body>
+</html>

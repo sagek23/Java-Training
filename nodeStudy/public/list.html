@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function(){
+            $.ajax({url:"/list",success:function(data){
+                $.each(data,function(idx, s){
+                    var tr = $("<tr></tr>");
+                    var td1 = $("<td></td>").html(s.name);
+                    var td2 = $("<td></td>").html(s.kor);
+                    var td3 = $("<td></td>").html(s.eng);
+                    var td4 = $("<td></td>").html(s.math);
+                    $(tr).append(td1,td2,td3,td4);
+                    $("#tb").append(tr);
+                });
+            }});
+        });
+    </script>
+</head>
+<body>
+    <h2>학생목록</h2>
+    <hr>
+    <table border="1" width="80%">
+        <thead>
+            <tr>
+                <td>이름</td>
+                <td>국어</td>
+                <td>영어</td>
+                <td>수학</td>
+            </tr>
+        </thead>
+        <tbody id="tb"></tbody>
+    </table>
+</body>
+</html>

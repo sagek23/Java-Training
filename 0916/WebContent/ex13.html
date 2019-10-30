@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	$("#btn").click(function () {
+		var input = $("input[type=text]");
+		//alert(input.length);
+		var tr = $("<tr class='tr'></tr>");
+		var tot = 0;
+		var cnt = 0;
+		var selTr;
+		$.each(input,function(idx,item){
+			$(tr).append($("<td></td>").html($(item).val()));
+			if(!isNaN($(item).val()))//item에 들어있는 value가 숫자이면 
+			{
+				tot += eval($(item).val());
+				cnt++;
+			}
+		});
+		$(tr).append($("<td></td>").html(tot));
+		$(tr).append($("<td></td>").html(tot/cnt));
+		$("#tb").append(tr);
+		
+		$(tr).mouseover(function () {
+			//console.log(selTr);
+			//console.log($(this));
+			if(this!=selTr)
+			{
+				$(this).css("background","yellow");
+			}		
+		});
+		
+		$(tr).mouseleave(function () {
+			if(this!=selTr)
+			{
+				$(this).css("background","white");
+			}
+		});
+		$(tr).click(function () {
+			$("tr").css("background","white");
+			$(this).css("background","red");
+			selTr = this;
+		});
+	});
+	//수정 필요
+	$("#btnUpt").click(function () {
+		var tds = selTr.children();
+		tds[0]= name.val();
+		tds[1] = kr.val();
+		tds[2] = en.val();
+		tds[3] = ma.val();
+	});
+	
+});
+</script>
+</head>
+<body>
+	이름:<input type="text" id="name"><br>
+	국어:<input type="text" id="kr"><br>
+	영어:<input type="text" id="en"><br>
+	수학:<input type="text" id="ma"><br>
+	<input id="btn" type="button" value="추가">
+	<input id="btnUpt" type="button" value="수정">
+	<input id="btnDel" type="button" value="삭제">
+	<table id="tb" border="1" width="80%">
+		<tr>
+			<td>이름</td>
+			<td>국어</td>
+			<td>영어</td>
+			<td>수학</td>
+			<td>총점</td>
+			<td>평균</td>
+		</tr>
+	</table>
+</body>
+</html>

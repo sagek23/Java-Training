@@ -1,0 +1,89 @@
+
+숙제) c##bit1235/ bit1235 계정을 생성하여 
+	 다음의 테이블들을 생성하고 임의의 레코드를 추가한 다음
+	 프로그래밍 연습합니다.
+	
+	책(책번호 pk,책이름,가격,저자,출판사)
+	고객(고객번호 pk,고객이름,주소,전화)
+	주문(주문번호 pk,책번호 fk,고객번호 fk,주문수량,주문금액,주문일)
+	
+	** 참고
+			날짜를 위한 자료형 			date
+			오늘 날짜를 추가할 때에는 		sysdate
+	
+	각각의 테이블에 임의의 레코드를 추가합니다.
+
+	1) 고객명을 입력받아 고객번호, 고객의이름, 주소, 전화 
+		주문한 도서명, 가격, 출판사, 저자, 주문수량, 
+		주문금액, 주문일을 출력하는 
+		프로그램을 작성합니다.
+
+	2) 도서등록, 고객등록 및 주문을 위한
+	         어플리케이션을 작성합니다.
+
+
+
+
+book bnum number primary key, bname varchar(20) not null, price number not null, 
+author varchar(20) not null, publisher varchar(20) not null
+
+customer cnum number primary key, cname varchar(20) not null, addr varchar(20) not null, tel varchar(20) not null
+
+create table orders (onum number primary key, bknum number not null references book(bnum), csnum number not null references customer(cnum),
+oquantity number not null, oamount number not null, odate date);
+
+insert into book values(1,'이솝우화', 8000, '이솝', '숲');
+
+insert into customer values(1000, '홍길동', '서울 마포구', '010-1234-5678');
+
+insert into orders values(1111, 1, 1000, 1, 8000, 20190618);
+
+
+
+insert into book values(2,'죽음', 14000, '베르베르', '열린책들');
+
+insert into book values(3,'숨', 16500, '테드 창', '엘리');
+
+insert into book values(4,'연금술사', 9500, '파울로 코엘료', '문학동네');
+
+insert into book values(5,'데미안', 8000, '헤르만 헤세', '민음사');
+
+insert into book values(6,'베어타운', 16500, '베크만', '다산책방');
+
+
+insert into customer values(1010, '강동원', '서울 강남', '010-1111-1111');
+insert into customer values(1020, '이정재', '서울 강동', '010-2222-2222');
+insert into customer values(1030, '정우성', '경기', '010-3333-3333');
+insert into customer values(1040, '한혜진', '충청남도', '010-4444-4444');
+insert into customer values(1050, '이효리', '제주', '010-5555-5555');
+
+
+insert into orders values(1001, 3, 1010, 1, 16500, 20190530);
+insert into orders values(1312, 6, 1030, 2, 33000, 20190625);
+insert into orders values(1421, 4, 1050, 1, 9500, 20190703);
+insert into orders values(1534, 2, 1020, 1, 14000, 20190725);
+insert into orders values(2005, 5, 1040, 1, 80000, 20190805);
+
+
+고객명을 입력받아 고객번호, 고객의이름, 주소, 전화 
+		주문한 도서명, 가격, 출판사, 저자, 주문수량, 
+		주문금액, 주문일을 출력하는 
+		프로그램을 작성합니다.
+
+ "select cnum, cname, addr, tel, bname, price, publisherm author, oquantity, oamount, odate from book, customer, orders 
+ where customer.cnum = orders.csnum and book.bnum = orders.bknum and cname = '"+name+"'";
+
+
+"insert into student values("+num+",'"+name+"',"+pri+","+aut+","+pub+")";
+
+
+ "select cnum, cname, addr, tel, bname, price, publisherm author, oquantity, oamount, odate from book, customer, orders 
+ where customer.cnum = orders.csnum and book.bnum = orders.bknum and cname = '"+name+"'";
+
+"select cname from customer where name = '"+name+"'";
+
+
+
+
+update 테이블명 set 컬럼명 = 값  where 조건식;
+update orders set odate = sysdate where odate = '20190618';

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function(){
+            //alert("ok") jquery가 작동하는지 확인용
+            $.getJSON("/blogList", function(data){
+                $.each(data,function(idx, item){
+                    var title = $("<h2></h2>").html(item.title);
+                    var content = $("<p></p>").html(item.content.substring(0,20)+"...");
+                    var a = $("<a></a>").html("read more").attr("href","blogDetail.html?article_id="+item._id);
+                    $("#innercontentarea").append(title,content,a);
+                });
+            });
+        });
+    </script>
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="contentarea">
+        <div id="innercontentarea">
+            <h1>My Blogs</h1>
+        </div>
+    </div>
+</body>
+</html>

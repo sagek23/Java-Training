@@ -1,0 +1,308 @@
+ORA-00904: "NUM": 부적합한 식별자
+: sql명령어 중에 테이블에 존재하지않는 컬럼이름을 사용했을 때
+발생하는 오류
+
+데이터베이스 연결 프로그램을 작성할 때에는 반드시 catch절에
+예외메세지를 출력할 것.
+
+sql명령어를 작성할 때에는 반드시 컬럼이름을 확인할 것.
+
+
+ORA-00904:부적합한 식별자
+ 1)컬럼이름 확인
+ 2)테이블이름 확인
+
+
+<데이터베이스 명령어>
+DDL: 데이터 정의어 - 테이블 생성 create~
+		     테이블 삭제 drop~
+		     테이블(구조)변경 alter~
+
+DML: 데이터 조작어 - 자료를 추가 insert ~   Create
+		     자료를 검색 select ~   Read
+		     자료를 수정 update~    Update
+		     자료를 삭제 delete~    Delete
+		   
+DCL: 데이터 제어어 - 권한부여 grant
+		     권한삭제 revoke
+
+<테이블 생성>
+create table 테이블명(속성명 자료형 [제약], 속성명 자료형 [제약]...)
+
+<제약(constraint)의 종류>
+-not null: null을 허용하지 않음
+-null: null을 허용
+-unique: 값이 유일함
+-primary key: not null + unique, 주식별자. 테이블에서 다른 
+	      레코드와 구별하기위해서 속성에 이 제약을 붙힌다.
+
+-check: 속성의 값이 특정 조건을 만족해야할 때 사용.
+	ex)나이는 20살이어야한다.
+
+-default: 생략하면 기본값을 적용
+-------------------------------------------------------------------------------
+
+create table customer( 
+	no number  not null,
+	name varchar(20),
+	age number null
+);
+
+<자료를 추가하는 방법>
+1)insert into 테이블명 values(값1, 값2...) - 컬럼의 순서대로 값을 줘야함.
+
+2)inset into 테이블명(컬럼1, 컬럼2, ..)values(값1, 값2..) -기재된 컬럼이외에는
+null을 허용해야함. (값이 들어가지 않기 때문)
+
+
+
+insert into customer(no) values(100);
+insert into customer values(200, '홍길동',20);
+insert into customer values(300, '이순신',null);
+
+프라이머리 키를 주지않아 에러
+insert into customer (name, age) values ('유관순', 20);
+ORA_01400:
+NULL을 ("C##BIT1234"."CUSTOMER"."NO")안에 삽입할 수 없습니다. 
+
+-------------------------------------------------------------------------------
+
+create table customer( 
+	no number  unique,
+	name varchar(20) not null,
+	age number null
+);
+
+insert into customer values(10, '홍길동',20);
+insert into customer values(40, '강감찬',40);
+
+insert into customer(no,age) values(30,60); name이 not null이기 때문에 불가
+insert into customer(name,age) values('홍길동',20); 가능
+insert into customer(no, name) values(10,'홍길동'); no가 중복되기 때문에 불가
+
+unique만으로 혹은 not null만으로 다른 레코드와 구별할 수 없다.
+
+unique + not null이어야 다른 레코드와 구별 가능.
+
+primary key = unique + not null
+-------------------------------------------------------------------------------
+
+<primary key>
+테이블의 다른 레코드와 구별하기 위하여 속성들 중에 중복을 허용하지않고
+null을 허용하지않을 속성에 primary key를 설정. 주식별자
+
+
+create table customer( 
+	no number  primary key,
+	name varchar(20) not null,
+	age number null
+);
+
+insert into customer values (10, '홍길동', 20);
+insert into customer values (20, '강감찬', 20);
+insert into customer(name, age) values ('홍길동',20); no가 null허용하지 않으므로 x
+insert into customer(no, name) values (30, '유관순'); 가능
+insert into customer(no, name) values (10, '김유신'); 10번이 중복이므로 불가
+
+-------------------------------------------------------------------------------
+<check 제약>
+속성의 값이 특정 조건을 만족해야한다.
+
+create table customer( 
+	no number  primary key,
+	name varchar(20) not null,
+	age number check(age>=20),
+	addr varchar2(20)
+);
+
+insert into customer values (10, '유관순', 40, '서울');
+insert into customer(no,name,age) values(20,'유관순',50);
+
+insert into customer(no,name,age) values(30,'유관순',5);
+
+-------------------------------------------------------------------------------
+<default 제약>
+자주 쓰이는 속성값이 있다면 기본 값을 설정하여 생략할 수 있다.
+
+create table customer( 
+	no number  primary key,
+	name varchar(20) not null,
+	age number default 20 check(age>=20),  나이를 넣지않으면 기본값 20
+	addr varchar2(20) default '서울'   주소를 넣지 않으면 기본값 서울
+);
+
+insert into customer(no,name,age) values(10, '유관순', 40);
+insert into customer(no,name) values(20,'홍길동');
+insert into customer values (30, '강감찬', 30, '수원');
+
+-------------------------------------------------------------------------------
+<다음과 같은 테이블을 작성>
+부서
+  부서번호  number pk
+  부서명    varchar  not null
+  부서위치  varchar  default '서울'
+
+ create table dept( 
+	no number  primary key,
+	name varchar(20) not null,
+	ddr varchar(20) default '서울'
+);
+
+
+insert into dept(no, name) values (10, '영업부');
+insert into dept values (20, '개발1팀', '제주');
+insert into dept values (30, '개발 2팀', 'LA');
+
+
+사원
+  사원번호  number pk
+  사원이름  varchar not null
+  급여      number default 300
+  직급	    varchar
+  부서번호  number not null
+
+create table employee(
+	eno number primary key,
+	ename varchar(20) not null,
+	salary number default 300,
+	position varchar(20),
+	dno number not null);
+
+insert into employee values(1,'홍길동',500,'과장',10);
+insert into employee values (2,'한석봉',350,'주임',20);
+insert into employee(no,name,dno) values(3,'정약용',30);
+
+
+10 영업부  서울
+20 개발1팀 제주
+30 개발2팀 LA
+
+40번이라는 부서는 없는 부서. 입력 못하도록 제약걸기.
+
+-------------------------------------------------------------------------------
+<참조키 설정>
+references 테이블명(컬럼)
+
+"사원"테이블의 "부서번호"는 반드시 "부서"테이불의 "부서번호"로 설정하고 싶다.
+
+어떤 테이블의 속성값이 반드시 이미 있는 또 다른 테이블에 속성에 나타난
+값이어야 할 경우 
+
+references 참조할 테이블명(참조할 속성명)
+
+
+create table employee(
+	eno number primary key,
+	ename varchar(20) not null,
+	salary number default 300,
+	position varchar(20),
+	dno number not null references dept(no));
+
+부서번호는 '부서'테이블의 키를 참조하므로 외래키(foreign key)라고 한다.
+
+참조키는 반드시 부모데이터 베이스의 primary key로 설정해야한다.
+
+-------------------------------------------------------------------------------
+
+Foreign key(참조키)
+: 대부분의 테이블은 관계에 있도록 만든다. 관계가 있다는 말은 두개의 테이블에
+  공통으로 들어가는 컬럼이 있다는 것이다. 
+  '부서'테이블에도 '부서번호'가 있고 '사원'테이블에도 '부서번호'가 있다.
+  이것을 "관계에 있다"라고 한다.
+
+  이때 둘 중에 데이터가 먼저 들어가야 하는 테이블을 "부모",
+  다른 하나를 "자식"이라고 한다.
+
+  즉, '사원'테이블의 '부서번호'는 반드시 '부서'테이블의 '부서번호'에 존재하는 
+  값이 되도록 만들어야한다. 
+  이를 위하여 "참조키"를 설정한다.
+  이를 위해하는 경우 "참조 무결성에 위배됩니다"라는 메세지를 출력.
+
+ <개체 무결성, 참조 무결성>
+
+개체무결성
+: 테이블의 모든 레코드는 반드시 주식별자에 의해서 구별이 가능해야한다.
+
+참조무결성
+: 자식테이블의 참조키는 반드시 부모테이블의 주식별자에 존재하는 값이어야한다. 
+
+-------------------------------------------------------------------------------
+
+연습) 영업부의 위치를 검색
+select addr from dept where name = '영업부';
+
+연습) 개발1팀의 부서번호를 검색
+select no from dept where name ='개발1팀';
+
+연습) 홍길동의 급여와 부서번호를 검색
+select salary, dno from employee where name = '홍길동';
+
+<join하여 데이터 가져오기>
+
+두개의 테이블로부터 데이터 가져오기
+select 컬럼1, 컬럼2, ... from 테이블1, 테이블2 where 조인식;
+
+조인식은 두 테이블에 공통으로 들어가는 컬럼으로 표현된다.
+
+연습) 홍길동이 근무하는 부서명과 부서위치 급여 직급을 출력
+select name, addr, salary, position from dept, employee 
+where dept.no = employee.dno and ename = '홍길동';
+
+연습) 홍길동이 근무하는 부서번호, 부서명, 부서위치, 급여를 출력
+select no, name, addr, salary from dept, 
+employee where dept.no = employee.dno and ename = '홍길동';
+
+dno가 양쪽에 중복된 속성일 경우
+: dno컬럼이 dept에도 있고 employee에도 있으면 "열의 정의가 애매합니다"
+라고 에러가 출력된다.
+
+select dept.no, name, addr, salary from dept, 
+employee where dept.no = employee.dno and ename = '홍길동';
+
+dept.no라고 어느 테이블의 속성인지 확실히 할 것.
+
+연습) 급여가 500만원 이상인 사원들의 이름, 부서명, 직급, 급여를 출력
+단, 급여가 높은 순으로 출력
+
+select ename, name, position, salary from dept, employee where 
+dept.no = employee.dno and (salary>=500) order by salary desc;
+
+연습) '서울'에 근무하는 모근 사원들의 부서번호, 이름, 직급을 출력.
+단 직급순으로 출력. 직급이 동일할 때에는 이름순으로 출력
+
+select no, ename, position from dept, employee where addr ='서울' and
+dept.no = employee.dno order by position, ename;
+
+
+연습) 직급이 '부장'인 모든 사람들의 사원번호, 이름, 급여, 부서명을 출력.
+단, 부서명 순으로 출력하고 동일할 때에는 이름순으로 출력.
+
+select eno, ename, salary, name from dept, employee where position =
+'부장' and dept.no = employee.dno order by name, ename;
+
+짧은 애칭을 준 경우:
+select eno, ename, salary, name from dept d, employee e where position =
+'부장' and d.no = e.dno order by name, ename;
+
+연습) 이름이 '홍길동'인 사람의 부서명, 직급을 출력
+select name, position from dept, employee where ename = '홍길동'and 
+dept.no = employee.dno;
+
+테이블 이름이 너무 길면 짧은 애칭을 줄 수 있다.
+ex)select dno, ename, position from employee e, dept d w
+here addr ='서울' and dept.no = employee.dno order by position, ename;
+
+연습) '홍길동'의 사원번호, 이름, 부서번호, 부서명, 부서위치, 
+급여, 직급을 출력.
+select eno, ename, dno, name, addr, salary, position from dept d, 
+employee e where ename ='홍길동' and e.dno = d.no;
+
+-------------------------------------------------------------------------------
+
+연습) 사용자로부터 이름을 입력받아 그 사람의
+사원번호, 이름, 부서번호, 부서명, 부서위치, 
+급여, 직급을 출력.
+
+
+
+select eno, ename, dno, name, addr, salary, position from dept, employee where dept.no = employee.dno and ename = '홍길동';

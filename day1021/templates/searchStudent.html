@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>학생목록</h2>
+        <table>
+            <tr>
+                <td>이름</td>
+                <td>국어</td>
+                <td>영어</td>
+                <td>수학</td>
+            </tr>
+            <tr>
+                <td>{{arr.name}}</td>
+                <td>{{arr.kor}}</td>
+                <td>{{arr.eng}}</td>
+                <td>{{arr.math}}</td>
+            </tr>
+        </table>
+    <form action="/search" method="post">
+        <input type="text" name="name" placeholder="이름을 입력하세요">
+        <input type="submit" value="검색">
+        <input type="submit" value="삭제" id="delete">
+    </form>
+</body>
+</html>

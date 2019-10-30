@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bbs">
+
+	<select id="nextNum" resultType="java.lang.Integer">
+	 	select nvl(max(num),0)+1 from bbs
+	</select>
+
+  <select id="selectAll" resultType="bbsVo">
+    select * from bbs 
+    <if test="keyword!=null and keyword !=''">
+    where ${keyfield} like '%' || #{keyword} ||'%'
+    </if>
+    order by bref desc, bstep 
+  </select>
+  <select id="detail" resultType="bbsVo">
+  	select * from bbs where num=#{num}
+  </select>
+  <insert id="insert">
+  	insert into bbs values(#{num},#{title},#{writer},#{pwd},#{content},0,sysdate,#{ip},#{fname},#{bref},#{blevel},#{bstep})
+  </insert>
+  <update id="update">
+  	update bbs set title=#{title}, content=#{content}, fname=#{fname} where num=#{num} and pwd=#{pwd}
+  </update>
+  <update id="updateStep">
+  	update bbs set bstep = bstep+1 where bref=#{bref} and bstep > #{bstep}
+  </update>
+  <delete id="delete">
+  	delete bbs where num=#{num} and pwd=#{pwd}
+  </delete>
+</mapper>

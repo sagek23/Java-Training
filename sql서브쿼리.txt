@@ -1,0 +1,16 @@
+select ename, mgr from emp where mgr = 1000 or eno = 1000;
+
+(select ename, eno from (select ename, mgr from emp where mgr = 1000 or eno = 1000))
+
+select eno, ename, mgr from emp where mgr = 1000 or eno = 1000
+
+
+select mgr, eno, ename, dname, dloc, nvl(sal,0)*12 esal, to_char(hiredate, 'yyyy') hiredate, 
+round(months_between(sysdate, hiredate)) wmonths, email from dept d, emp e 
+where d.dno = e.dno;
+
+select e.eno, e.ename, dname, dloc, esal, e.hiredate, wmonths from (select 
+mgr, eno, ename, dname, dloc, nvl(sal,0)*12 esal, to_char(hiredate, 'yyyy') hiredate, 
+round(months_between(sysdate, hiredate)) wmonths, email from dept d, emp e 
+where d.dno = e.dno) e, emp m
+where e.mgr = m.eno and m.ename = 'ÀÌÀç¿ì';

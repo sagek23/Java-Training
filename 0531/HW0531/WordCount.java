@@ -1,0 +1,40 @@
+// 사용자한테 문장을 입력받아 단어별 빈도수를 구하여 출력하는 프로그램 작성
+
+import java.util.Scanner;
+class WordCount
+{
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("원하는 문장을 입력하세요(단, 영문으로 합니다.)"); 
+		String input = sc.nextLine();
+		String []word = input.split(" "); 
+		int count[] = new int[word.length];
+
+		for ( int i =0; i<word.length ; i++ ) {  	
+			for( int j =0; j<word.length; j++){  
+
+				if ( word[i].equals(word[j]) ){
+
+					count[i]++;
+
+				}
+			}
+		} 
+
+		/*
+		[hello][java][hello][korea]			word[]
+		[2]		[1]		[2]	  [1]			count[]
+
+		*/
+		String result ="";
+		for ( int i =0; i<word.length; i++ ) {
+			
+			int check = result.indexOf( word[i] ); //indexOF 그 글자가 있는지 묻는 것. 없으면 -1
+			if( 0 > check ){
+				result += word[i]; //hello
+				result = result + " : " +count[i] + " ";
+			}
+			
+		} System.out.println( result );
+	}
+}

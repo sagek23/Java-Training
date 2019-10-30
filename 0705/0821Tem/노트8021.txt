@@ -1,0 +1,1 @@
+(BitAction)Class.forName(clsName).newInstance());//클래스명의 문자열을 가지고 객체를 생성

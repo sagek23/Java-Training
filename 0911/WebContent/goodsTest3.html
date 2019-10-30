@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+var g = {no:100, name:'축구공', price:45000, qty:50, fname:'ball1.jpg'};
+var arr = [100, "축구공", 45000, 50, "ball1.jpg"];
+$(function () {
+	$.each(g, function (index, data) {
+		alert(data);
+	});
+	
+});
+	
+		
+</script>
+</head>
+<body>
+<h2>상품목록</h2>
+<table id="result" border="1" width="100%">
+	<tr>
+		<td>상품번호</td>
+		<td>상품명</td>
+		<td>가격</td>
+		<td>수량</td>
+		<td>이미지</td>
+	</tr>
+</table>
+<button id="btn">출력</button>	
+</body>
+</html>

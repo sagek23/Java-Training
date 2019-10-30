@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<bean id="b" class="com.bit.exam03.book">
+	<constructor-arg value="1"/>
+	<constructor-arg value="여행의 이유"/>
+	<constructor-arg value="문학동네"/>
+	<constructor-arg value="13500"/>
+</bean>
+<bean id="c" class="com.bit.exam03.Customer">
+	<constructor-arg value="1"/>
+	<constructor-arg value="홍길동"/>
+	<constructor-arg value="서울시 마포구 신수동"/>
+	<constructor-arg value="010-2445-6546"/>
+</bean>
+<bean id="bs" class="com.bit.exam03.BookStore">
+	<constructor-arg>
+		<ref local="b"/>
+	</constructor-arg>
+	<constructor-arg>
+		<ref local="c"/>
+	</constructor-arg>
+</bean>
+</beans>

@@ -1,0 +1,147 @@
+package bbs;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Vector;
+
+public class BbsDao {
+	
+	public int updateCon(BbsVo v) {
+		int re = -1;
+		String sql = "update bbs set title=?, content=? where pwd=? and num=?";
+		try {
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, v.getTitle());
+			pstmt.setString(2, v.getContent());
+			pstmt.setString(3, v.getPwd());		
+			pstmt.setInt(4, v.getNum());
+			
+			re= pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		
+		
+		return re;
+	}
+	public int insertNew(BbsVo v) {
+		int re = -1;
+		String sql = "insert into bbs values(seq_num.nextval,?,?,?,?,0,sysdate,?,?)";
+		try {
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, v.getTitle());
+			pstmt.setString(2, v.getWriter());
+			pstmt.setString(3, v.getPwd());
+			pstmt.setString(4, v.getContent());
+			pstmt.setString(5, v.getIp());
+			pstmt.setString(6, v.getFname());
+			re = pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		
+		return re;
+	}
+	
+	public BbsVo getBbs(int num){
+		
+		BbsVo b = new BbsVo();
+		String sql = "select * from bbs where num = ?";
+		try {
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				b.setNum(rs.getInt(1));
+				b.setTitle(rs.getString(2));
+				b.setWriter(rs.getString(3));
+				b.setPwd(rs.getString(4));
+				b.setContent(rs.getString(5));
+				b.setViews(rs.getInt(6));
+				b.setCreDate(rs.getDate(7));
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return b;
+	}
+	
+	public int deleteBbs(BbsVo v)
+	{
+		int re=-1;
+		String sql = "delete bbs where num = ? and pwd = ?";
+		try {
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, v.getNum());
+			pstmt.setString(2, v.getPwd());
+			re = pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return re;
+	}
+	
+	public ArrayList<BbsVo> listAll()
+	{
+		ArrayList<BbsVo> list = new ArrayList<BbsVo>();
+		String sql = "select * from bbs order by num";
+		try {
+			Connection conn = ConnectionProvider.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				BbsVo v = new BbsVo();
+				int num = rs.getInt(1);
+				String title = rs.getString(2);
+				String writer = rs.getString(3);
+				String pwd = rs.getString(4);
+				String content = rs.getString(5);
+				int views = rs.getInt(6);
+				Date creDate = rs.getDate(7);
+				String ip = rs.getString(8);
+				String fname = rs.getString(9);
+				
+				v.setNum(num);
+				v.setTitle(title);
+				v.setWriter(writer);
+				v.setPwd(pwd);
+				v.setContent(content);
+				v.setViews(views);
+				v.setCreDate(creDate);
+				v.setIp(ip);
+				v.setFname(fname);
+			
+				list.add(v);
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+
+}

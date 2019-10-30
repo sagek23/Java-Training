@@ -1,0 +1,36 @@
+/*
+사람 Person(자료형)
+     속성
+            이름 String name        "홍길동"
+	    혈액형 String bloodType "AB'
+
+     동작   먹는다  void eat(String food)
+     	    움직인다 void move(String direction)
+
+*/
+class Person
+{
+	String name; //속성(멤버변수): 유지되어야될 데이터
+	String bloodType;
+	void eat(String food) //동작(멤버메소드): 기능
+	{
+		System.out.println("혈액형이 "+bloodType+"인 "+name+"이/가 "+food+"를/을 먹어요" );
+	}
+	void move(String direction)
+	{
+		System.out.println("혈액형이 "+bloodType+"인 "+name+"이/가 "+direction+"을/를 향하여 움직여요");
+	}
+}
+class  PersonTest
+{
+	public static void main(String[] args) 
+	{
+		Person p1;//Person(자료형) p1(변수명)
+		p1 = new Person(); //new는 객체생성선언하는 것. Person객체를 가리킬 수 있는 참조변수 p1변수 선언
+		p1.name ="홍길동"; //변수명.속성 = "";
+		p1.bloodType = "O";
+		p1.eat("버블티"); //변수명.메소드();
+		p1.move("집");
+		
+	}
+}

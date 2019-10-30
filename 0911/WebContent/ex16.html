@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="student.js"></script>
+<script type="text/javascript">
+var list = [];
+list.push(new student("홍길동", 80,90,85,90));
+list.push(new student("이순신", 100,90,85,80));
+list.push(new student("김유신", 100,100,95,90));
+list.push(new student("강감찬", 70,70,95,90));
+list.push(new student("유관순", 90,90,95,90));
+
+var output = "";
+for(var i in list) //i는 인덱스
+{
+	output += list[i].toString()+"\n";
+}
+alert(output);
+</script>
+</head>
+<body>
+
+</body>
+</html>

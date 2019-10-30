@@ -1,0 +1,11 @@
+
+class  AgeFromSN
+{
+	public static void main(String[] args) 
+	{
+		String snum = "910101-1234567";
+		String bYear = "19"+snum.substring(0,2);
+
+		System.out.println(bYear);
+	}
+}

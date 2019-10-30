@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+       $(function(){
+            var id =
+             location.search.substring(location.search.indexOf("=")+1);
+             $("#id").val(id);
+            $.getJSON("blogDetail?id="+id,function(data){
+                var h2 = $("<h2></h2>").html(data.title);
+                var p = $("<p></p>").html(data.content);
+                $("#detail").append(h2,p);
+            
+                if(data.comment != null)
+            {
+                $.each(data.comment,function(idx, comm){
+                    $("#comment").append("<b>"+comm.name+"</b> says...");
+                    $("#comment").append("<p>"+comm.comment+"</p>");
+                    $("#comment").append("<spn>"+comm.posted_at+"</span><br><br><br>");
+                });
+            }
+            });
+
+           
+
+            $("#btn_comment").click(function(){
+                var data = $("#f").serialize();
+                $.post({url:"comment",data:data,success:function(r){
+                    $("#comment").append("<b>"+r.name+"</b>");
+                    $("#comment").append("<p>"+r.comment+"</p>");
+                    $("#comment").append("<span>"+r.posted_at+"</span>");
+                }});
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div id="contentarea">
+        <div id="innercontentarea">
+            <h1>My Blogs</h1>
+            <div id="detail"></div>
+
+            <div id="comment-section">
+                <h3>Comments</h3>
+                <div id="comment"></div>
+                <h3>Post your comment</h3>
+                <form id="f" name="f" method="post">
+                    <input type="hidden" name="id" id="id">
+                    <span class="input-label">Name</span>
+                    <input type="text" name="commentor_name" id="commentor_name" class="commentor_name">
+                    <br><br>
+
+                    <span class="input-label">Email</span>
+                    <input type="text" name="commentor_email" id="commentor_email" class="commentor_email">
+                    <br><br>
+
+                    <textarea rows="5" name="comment" id="comment"></textarea>
+                    <br><br>
+                    <input type="button" value="Save" id="btn_comment">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

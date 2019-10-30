@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		var arr = ['우동', '짜장면', '떡볶이', '마라탕'];
+		document.getElementById("btn").onclick = function () {
+		arr.forEach(function (a, b){
+		var ul = document.createElement("ul");
+		var li = document.createElement("li");
+		var mn = document.createTextNode(a);
+
+		li.appendChild(mn);
+
+		//ul.appendChild(li);
+
+		
+		result.appendChild(li);
+		});
+	}
+}	
+</script>
+</head>
+<body>
+	<h2>우리반이 추천하는 점심메뉴</h2>
+	<ul id="result">
+	</ul>
+	<button id="btn">출력</button>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jumun">
+  <select id="nextOrderNo" resultType="java.lang.Integer">
+  	select nvl(max(jumun_no),0)+1 from jumun
+  </select>
+  
+  <insert id="insertOrder">
+  	insert into jumun values(#{jumun_no}, #{custid},#{total},sysdate)
+  </insert>
+  
+  <insert id="insertOrderDetail">
+  	insert into jumun_detail values(seq_jumun_detail.nextval,#{jumun_no},#{goods_no},#{qty})
+  </insert>
+</mapper>

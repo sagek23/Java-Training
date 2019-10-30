@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function () {
+		document.getElementById("btn").onclick = function name() {
+			var d = new Date();
+			var hour = d.getHours(); 
+			var fname = "sun.png";
+			
+			if(hour >= 18)
+				fname = "moon.png";
+			document.getElementById("img").src = fname;
+	}
+	
+}
+	
+</script>
+</head>
+<body>
+	<img id="img" src="">
+	<button id="btn">시간</button>
+</body>
+</html>

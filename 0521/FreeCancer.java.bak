@@ -1,0 +1,15 @@
+import java.util.Scanner;
+class  FreeCancer
+{
+	public static void main(String[] args) 
+	{ 
+		Scanner sc = new Scanner(System.in);
+		int a; 
+		System.out.println("출생년도를 입력해주세요.");
+		a = sc.nextInt();
+		if (a < 1971)
+			System.out.print("무료 암검진 대상입니다.");
+		else
+			System.out.print("무료 암검진 대상이 아닙니다.");
+	}
+}

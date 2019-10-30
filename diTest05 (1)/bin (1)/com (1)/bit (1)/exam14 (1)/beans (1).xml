@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- <bean id="p" class="com.bit.exam14.Person" scope="singleton">  객체를 하나 생성하여 공유. 
+	singleton은 생략가능. getBean할 때마다 객체를 생성하려면 prototype을 입력-->
+	 <bean id="p" class="com.bit.exam14.Person" scope="prototype">																
+		<constructor-arg value="홍길동"/>
+		<constructor-arg value="20"/>
+	</bean>
+</beans>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>회원가입</h2>
+	<!-- 입력한 값을 서버에 제출하려면 form태그 안에 input태그가 있어야함 -->
+	<form action="result.jsp" method="get">
+		아이디: <input type="text" name="id" size="5" maxlength="10" required="required"><br> 
+		비밀번호: <input type="password" name="pwd" minlength="6" required="required"><br> 
+		이름: <input type="text" name="name"><br>
+		취미: 
+			<input type="checkbox" name="hobby" value="영화감상">영화감상
+			<input type="checkbox" name="hobby" value="음악감상">음악감상
+			<input type="checkbox" name="hobby" value="독서">독서
+			<input type="checkbox" name="hobby" value="게임">게임<br> 
+		직업: 
+			<select name="job"> <!-- 사이즈가 1이나 없으면 콤보박스형태로 나온다 -->
+				<option value="학생">학생</option>
+				<option value="회사원">회사원</option>
+				<option value="자영업">자영업</option>
+				<option value="취업준비생">취업준비생</option>
+				<option value="기타">기타</option>
+			</select><br> 
+		성별: 
+		<input type="radio" name="gender" value="남자"> 남자
+		<input type="radio" name="gender" value="여자"> 여자<br>
+		
+		나이:
+		<input type="number" name="age"><br>
+		이메일:
+		<input type="email" name="email"><br>
+		전화번호:
+		<input type="tel" name="tel"><br>
+		생일:
+		<input type="date" name="bday" value="1980-01-01" min="15" max="60"><br>
+		자기소개:
+		<br><textarea rows="10" cols="80" name="intro"></textarea><br>
+		
+		<input type="submit" value="확인"> <!-- action에 설정되있는 곳에 값을 가지고 간다. -->
+	</form>
+</body>
+</html>

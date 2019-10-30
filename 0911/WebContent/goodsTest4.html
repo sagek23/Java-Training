@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	var arr = [{no:100, name:'축구공', price:45000, qty:50, fname:'ball1.jpg'},
+		{no:200, name:'유니폼', price:85000, qty:50, fname:'cloth1.jpg'},
+		{no:300, name:'축구화', price:125000, qty:50, fname:'shoe1.jpg'},
+		{no:400, name:'스타킹', price:15000, qty:50, fname:'stock1.jpg'}];
+$(function () {
+		$("#btn").click(function () {
+			$.each(arr, function (i, g) {
+				var tr = $("<tr></tr>");
+				$.each(g, function (j, value) {
+					if(j=="fname")
+					{
+						var img = $("<img/>").attr({"src":value, width:"50", 
+							height:"50"})
+						var td = $("<td></td>");
+						$(td).append(img);
+						$(tr).append(td);
+					}
+					else{
+						$(tr).append($("<td></td>").html(value));
+					}
+				});
+				$("#result").append(tr);
+		});
+	});
+})
+	;
+		
+</script>
+</head>
+<body>
+<h2>상품목록</h2>
+<table id="result" border="1" width="100%">
+	<tr>
+		<td>상품번호</td>
+		<td>상품명</td>
+		<td>가격</td>
+		<td>수량</td>
+		<td>이미지</td>
+	</tr>
+</table>
+<button id="btn">출력</button>	
+</body>
+</html>

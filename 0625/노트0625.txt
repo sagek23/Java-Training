@@ -1,0 +1,331 @@
+CREATE USER c##madang IDENTIFIED BY madang;
+grant connect, resource to c##madang;
+
+
+create table book(
+	bookid number primary key,
+	bookname varchar2(40),
+	publisher varchar2(40),
+	price number
+);
+
+
+create table customer(
+	custid number primary key,
+	name varchar2(40),
+	address varchar2(50),
+	phone	varchar2(20)
+);
+
+create table orders(
+	orderkid number primary key,
+	custid number references customer(custid),
+	bookid number references book(bookid),
+	saleprice number,
+	orderdate date
+);
+
+
+insert into book values(1, '축구의 역사', '굿스포츠', 7000);
+insert into book values(2, '축구아는 여자', '나무수', 13000);
+insert into book values(3, '축구의 이해', '대한미디어', 22000);
+insert into book values(4, '골프 바이블', '대한미디어', 35000);
+insert into book values(5, '피겨 교본', '굿스포츠', 8000);
+insert into book values(6, '역도 단계별기술', '굿스포츠', 6000);
+insert into book values(7, '야구의 추억', '이상미디어', 20000);
+insert into book values(8, '야구를 부탁해', '이상미디어', 13000);
+insert into book values(9, '올림픽 이야기', '삼성당', 7500);
+insert into book values(10, 'Olympic Champions', 'Pearson', 13000);
+
+
+insert into customer values(1, '박지성', '영국 맨체스터', '000-5000-0001');
+insert into customer values(2, '김연아', '대한민국 서울', '000-6000-0001');
+insert into customer values(3, '장미란', '대한민국 강원도', '000-7000-0001');
+insert into customer values(4, '추신수', '미국 클리블랜드', '000-8000-0001');
+insert into customer values(5, '박세리', '대한민국 대전', null);
+
+insert into orders values(1, 1, 1, 6000, to_date('2014-07-01', 'yyyy-mm-dd'));
+insert into orders values(2, 1, 3, 21000, to_date('2014-07-03', 'yyyy-mm-dd'));
+insert into orders values(3, 2, 5, 8000, to_date('2014-07-03', 'yyyy-mm-dd'));
+insert into orders values(4, 3, 6, 6000, to_date('2014-07-04', 'yyyy-mm-dd'));
+insert into orders values(5, 4, 7, 20000, to_date('2014-07-05', 'yyyy-mm-dd'));
+insert into orders values(6, 1, 2, 12000, to_date('2014-07-07', 'yyyy-mm-dd'));
+insert into orders values(7, 4, 8, 13000, to_date('2014-07-07', 'yyyy-mm-dd'));
+insert into orders values(8, 3, 10, 12000, to_date('2014-07-08', 'yyyy-mm-dd'));
+insert into orders values(9, 2, 10, 7000, to_date('2014-07-09', 'yyyy-mm-dd'));
+insert into orders values(10, 3, 8, 13000, to_date('2014-07-10', 'yyyy-mm-dd'));
+
+
+
+
+colum custid format 9999;
+colum name format a10;
+colum address format a10;
+colum phone format a10;
+
+
+colum orderid format 9999;
+colum custid format 9999;
+colum bookid format 9999;
+colum saleprice format 9,999;
+
+연습) "김연아" 고객의 전화번호를 검색
+select phone from customer where name = '김연아';
+
+연습)가격이 10000원 이상인 도서의 도서명과 출판사를 출력
+select bookname, publisher, price from book where price>=10000;
+
+연습) 모든 도서의 이름과 가격을 검색하시오
+select bookname, price from book;
+
+연습) 모든 도서의 도서번호, 도서이름, 출판사, 가격을 검색하시오
+select * from book;
+
+연습) 모든 출판사 검색(단, 중복없이)
+select distinct publisher from book;
+
+연습) 구매를 한 고객의 번호를 출력
+select distinct custid from orders;
+
+연습) 구매가 일어난 도서명을 출력;
+select distinct bookname from book, orders where book.bookid = orders.bookid;
+
+연습) 구매를 한 고객의 이름을 출력
+select distinct name from customer, orders where customer.custid = orders.custid;
+
+연습) 가격이 10000원이상 20000원 이하인 도서를 검색하시오
+select * from book where price >= 10000 and price <=20000;
+select * from book where price between 10000 and 20000;
+
+연습) 한권에 20000원 이상의 도서를 구매한 고객의 이름을 출력
+select distinct name, bookname from orders, customer, book where 
+price >=20000 and customer.custid = orders.custid and orders.bookid = book.bookid;
+
+연습) '박지성' 고객이 구매한 도서의 출판사이름을 출력하세요.
+select distinct publisher from book, orders, customer where 
+orders.custid=customer.custid and book.bookid = orders.bookid and name = '박지성';
+
+연습) '굿스포츠'에서 출판하는 도서 중에 박지성이 구매한 도서의 도서명, 가격을 출력
+select distinct bookname, price from orders, book, customer where 
+orders.custid=customer.custid and book.bookid = orders.bookid and name = '박지성' and 
+publisher = '굿스포츠';
+
+
+
+연습) '굿스포츠' 혹은 '대한미디어'에서 출판한 도서의 이름 출력
+or   - or를 쓰는경우 ()로 묶어주기 
+in
+
+select bookname from book where publisher = '굿스포츠' or publisher = '대한미디어';
+select bookname from book where publisher in('굿스포츠', '대한미디어');
+
+
+**서브쿼리 - 질의문안에 들어가는 또 다른 질의문
+ 책번호를 먼저 가져온 후 서브쿼리를 이용하요 해결할 수 있다.
+
+ 연습) '굿스포츠', '대한미디어' 이외의 출판사에서 출판한 도서 이름을 출력
+ not in 
+ != and !=
+
+select bookname from book where publisher not in('굿스포츠', '대한미디어');
+
+select bookname from book where publisher != '굿스포츠' and publisher != '대한미디어';
+
+
+
+<like 연산자>
+문자열값이 특정 패턴을 만족하는지 검사
+
+%는 모르는 여러글자
+_는 모르는 한글자
+
+
+
+
+연습) "김"씨인 고객을 모두 출력
+select * from customer where name like '김%';
+
+insert into customer values(6, '김강우', '대한민국 서울', '010-2222-4444');
+insert into customer values(7, '김태호', '대한민국 부산', '010-3333-4444');
+insert into customer values(8, '김사무엘', '대한민국 경기', '010-5555-4444');
+
+연습) "김"씨이고 이름이 3글자인 고객을 모두 출력
+select * from customer where name like '김__';
+
+연습) '대한민국'에 거주하는 고객이 구매한 도서의 이름, 가격, 구매가격을
+출력하시오
+
+select bookname, price, saleprice from customer, orders, book where 
+address like '대한민국%' and orders.custid=customer.custid and 
+book.bookid = orders.bookid;
+
+연습) 도서이름에 '축구'가 들어가는 책 출력
+select bookname from book where bookname like '%축구%';
+
+연습) 도서이름의 왼쪽 두번째 위치에  '구'가 들어가는 책 출력
+select bookname from book where bookname like '_구%';
+
+연습) 축구에 관한 도서 중 가격이 20,000원 이상인 도서
+select bookname, price from book where price >= 20000 and bookname like '%축구%';
+
+연습) 가격 순서대로, 가격이 같으면 이름 순.
+select * from book order by price, bookname;
+
+order by 역순: desc
+
+연습) '굿스포츠'나 '대한미디어'의 도서를 구매한 고객의 이름,
+도서명, 도서의 가격, 구매일을 출력. 단, 도서의 가격이 높은순으로 출력하고
+가격이 동일하면 도서명 순으로 출력
+
+select name, bookname, price, orderdate from book, orders, customer 
+where orders.custid=customer.custid and book.bookid = orders.bookid
+and publisher in( '굿스포츠','대한미디어') order by price, bookname;
+
+select name, bookname, price, orderdate from book, orders, customer 
+where (publisher = '굿스포츠' or publisher = '대한미디어' ) and
+orders.custid=customer.custid and book.bookid = orders.bookid 
+order by price, bookname;
+
+
+연습) '대한민국'에 거주하는 고객들이 '대한미디어'나 '이상미디어'의 도서중에
+도서명의 두번째 글자가 "구"인 도서중에 가격이 20000원 이상인 도서를 구매한 고객의 이름,
+도서명, 도서가격과 구매가격의 차이를 출력하시오.
+(단, 도서가격과 구매가격의 차이가 높은 순으로 출력하되 동일할 경우 도서명순으로 출력)
+
+select name, bookname, price-saleprice from orders, book, customer where orders.custid = customer.custid
+and orders.bookid = book.bookid and bookname like '_구%' and price >=5000 and publisher
+in ('대한미디어', '이상미디어') and address like '대한민국%' order by price-saleprice
+, bookname;
+
+---------------------------------------------------------------------------------------------------------
+
+집계함수 
+
+연습) 도서의 평균가격을 출력
+select price from book;
+
+select avg(price) from book;
+select sum(price) from book;
+select max(price) from book;
+select min(price) from book;
+select count(price) from book;
+
+연습) 박지성 고객이 구매한 도서의 평균가격 출력
+
+select avg(price) from book, orders, customer where 
+orders.custid = customer.custid and orders.bookid = book.bookid
+and name = '박지성';
+
+연습) 박지성 고객이 구매한 도서중 가장 비싼 도서 출력
+select max(price) from book, orders, customer where 
+orders.custid = customer.custid and orders.bookid = book.bookid
+and name = '박지성';
+
+연습) '대한미디어'의 도서의 평균가격을 출력
+
+select avg(price) from book where publisher = '대한미디어';
+
+
+연습) '대한미디어'의 총매출금액을 출력
+select sum(saleprice) from book, orders, customer where
+orders.bookid = book.bookid and publisher = '대한미디어';
+
+연습) '이상미디어'의 총 판매건수 출력
+select count(orderkid) from book, orders, customer where 
+orders.bookid = book.bookid and publisher = '이상미디어';
+
+연습) '이상미디어'에서 출판하는 총 도서의 수를 출력
+select count(bookid) from book where publisher = '이상미디어';
+
+연습) 모든 책의 이름을 출력
+select bookname from book;
+
+모든 책의 수를 출력
+select count(bookid) from book;
+
+<count>
+컬럼에 값이 있는 개수를 알려주는 함수
+(null인 것은 개수에 포함하지 않는다.)
+
+select count(phone) from customer;
+
+*null인 항목은 계산에 참여시키지 않는다.
+** 만약 값이 null인 경우 특정 값으로 변환 후 계산에 참여시킨다.
+
+nvl(컬럼, 값)
+
+연습) 만약 도서의 가격의 null이면 0으로 변환 후 도서의 평균가격을 
+출력한다. 
+
+select avg(nvl(price, 0)) from book;
+
+---------------------------------------------------------------------------------------------------
+
+<group by>
+
+연습) 모든 도서의 개수 출력
+select count(*) from book;
+
+연습) 출판사별로 도서의 수를 출력
+
+select count(*), publisher from book group by publisher;
+---------------------------------------------------------------------------------------------------
+select bookname, price from book;  책의 개수
+
+select sum(price) from book; 1개
+
+select bookname, sum(price) from book; - 사용불가
+
+**집계함수와 일반컬럼은 함께 사용 불가.
+
+group by절에 오는 컬럼만 집계함수와 사용가능.
+
+
+연습) 고객별로 구매한 도서의 수를 출력
+select count(orderkid), name from customer, orders where
+customer.custid = orders.custid group by name;
+
+
+연습) 고객별로 총 구매금액 출력
+select sum(saleprice), name from customer, orders where
+customer.custid = orders.custid group by name;
+
+연습) 출판사별로 총 매출액을 출력
+select sum(saleprice), publisher from book, orders where
+orders.bookid = book.bookid group by publisher;
+
+연습) 출판사별로 도서의 최고가격을  출력
+select max(price), publisher from book 
+where price is not null group by publisher;
+
+연습) '굿스포츠', '대한미디어', '이상미디어'의 도서별 판매 수량을 출력.
+단, 판매수가 높은 순으로 출력하되, 동일할 때에는 도서명 순으로 출력.
+
+select bookname, count(orderkid) from book, orders where orders.bookid =
+book.bookid and publisher in ('굿스포츠', '대한미디어', '이상미디어')
+group by bookname order by count(orderkid) desc, bookname;
+
+having 
+: group by 절에 나타난 결과에 조건식을 부여
+
+
+--------------------------------------------------------------------------------------------------------
+연습) 고객 등록을 위한 프로그램을 작성
+
+Vo: Value Object
+   테이블의 레코드 하나를 자바객체로 표현하기 위한 클래스
+
+Dao: Database Access Object
+     데이터베이스에 접근하기 위한 객체
+
+--------------------------------------------------------------------------------------------------------
+
+Resultset rs = executeQuery();
+데이터베이스 명령어가 select 일때
+검색한(select)한 결과의 집합을 ResultSet으로 반환
+
+
+int re = executeUpdate();
+데이터베이스 명령어가 Update, insert, delete일 때
+insert나 update, delete를 성공적으로 수행한 레코드의 수(정수)를
+반환

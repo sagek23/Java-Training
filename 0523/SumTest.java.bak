@@ -1,0 +1,19 @@
+/*
+사용자에게 n을 입력받아 1~n까지의 합을 누적하여 출력하는 프로그램
+*/
+import java.util.*;
+class  SumTest
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.print("n을 입력하세요==> ");
+		int n = sc.nextInt();
+		int sum = 0;
+		for (int i = 1; i<=n ;i++ )
+		{
+			sum += i;
+		}
+		System.out.println("1에서"+n+"까지의 합"+sum);
+	}
+}

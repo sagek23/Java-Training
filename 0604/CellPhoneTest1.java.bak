@@ -1,0 +1,119 @@
+import java.util.*;
+class CellPhone1
+{
+	private String modelName;
+	private String manufacture;
+	private String color;
+	private boolean onOff;
+	private boolean camera;
+
+	public void setModelName(String modelName)
+	{
+		this.modelName=modelName;
+	}
+		public void setManufacture(String manufacture)
+	{
+		this.manufacture=manufacture;
+	}
+		public void setColor(String color)
+	{
+		this.color=color;
+	}
+		public void setOnOff(boolean onOff)
+	{
+		this.onOff=onOff;
+	}
+		public void setCamera(boolean camera)
+	{
+		this.camera=camera;
+	}
+		public String getModelName()
+	{
+		return modelName;
+	}
+		public String getManufacture()
+	{
+		return manufacture;
+	}
+		public String getColor()
+	{
+		return color;
+	}
+		public boolean getOnOff()
+	{
+		return onOff;
+	}
+	public boolean getCamera()
+	{
+		return camera;
+	}
+	public CellPhone1() 
+	{
+		this("iPhone xs max", "Apple", "Zet Black", false, true); //매개변수를 갖지않는 생성자이므로 다른 생성자를 호출
+		/*
+		modelName = "iPhone xs max";
+		manufacture = "Apple";
+		color = "zet black";
+		onOff = false;
+		camera = true;
+		의 내용은 this.~와 같다.*/
+		
+		
+	}
+	
+	public CellPhone1(String modelName, String manufacture, String color, boolean onOff, boolean camera)
+	{
+		this.modelName=modelName;
+		this.manufacture=manufacture;
+		this.color=color;
+		this.onOff=onOff;
+		this.camera=camera;
+	}
+	
+	public String toString()
+	{
+		return "모델명: "+modelName+" 제조사: "+manufacture+" 색상: "+color+" 전원: "+onOff+" 카메라: "+camera;
+	}
+		
+	public boolean isPower()
+	{
+		return onOff;
+	}
+	public boolean isCamera()
+	{
+		return camera;
+	}
+	public void off()
+	{
+		onOff = false;
+	}
+	public void power() //toggle 온오프 반복
+	{
+		if(onOff==true)
+			onOff=false;
+		else
+			onOff=true;
+	}
+	public void on()
+	{
+		onOff = true;
+	}
+
+}
+class	CellPhoneTest1  
+{
+	public static void main(String[] args) 
+	{
+		CellPhone1 c1 = new CellPhone1();
+		//System.out.println(c1.onOff);
+		c1.setModelName("iPhone");
+		//System.out.println("모델명: "+c1.getModelName());
+		//c1.setOnOff(false);
+		//System.out.println("전원: "+c1.getOnOff());
+		//System.out.println(c1);
+		c1.on();
+		System.out.println(c1);
+		c1.power();
+		System.out.println(c1);
+	}
+}

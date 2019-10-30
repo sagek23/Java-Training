@@ -1,0 +1,9 @@
+<네트워크 통신방식>
+1.TCP방식
+==> ServerSocket, Socket
+2.UDP방식
+==> DatagramSocket, DatagramPacket
+
+------------------------------------------------------------------------------------
+java UDPSender 목적지주소(ip주소) + 보내고자하는 메세지
+

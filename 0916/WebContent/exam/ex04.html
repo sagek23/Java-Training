@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = function()
+{
+	document.getElementById("btnAdd").onclick = function()
+	{
+		/*
+		var result = document.getElementById("result");
+		
+		var h1 = document.createElement("h1");
+		var t = document.createTextNode("안녕");
+		
+		h1.appendChild(t);		
+		alert(h1);
+		*/
+		
+		
+		
+		var str = "<h1>";
+		str += "안녕";
+		str += "</h1>";
+		result.innerHTML=str;
+		
+		
+		//alert(str);
+	}
+}
+</script>
+</head>
+<body>
+	<div id="result"></div>
+	<button id="btnAdd">노드추가</button>
+</body>
+</html>
+
+
+
+
+
+
+
+

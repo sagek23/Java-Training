@@ -1,0 +1,101 @@
+abstract class Human //추상메소드를 가지고있으면 클래스도 추상클래스가 되어야함
+{
+	public String name; //멤버변수
+	public int age;
+
+	public abstract String getProfession(); //추상메소드. 자식이 반드시 재정의 해야함.강제적.
+
+	public Human(String name, int age) //매개변수
+	{
+		this.name = name; //this.~는 멤버변수를 의미
+		this.age = age;
+		System.out.println("Human의 생성자2");
+	}
+	public Human()
+	{
+		System.out.println("Human의 생성자1");
+	}
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	public void setAge(int Age)
+	{
+		this.age = age;
+	}
+	public String getName()
+	{
+		return name;
+	}
+	public int getAge()
+	{
+		return age;
+	}
+	public String toString()
+	{
+		return "이름: "+name+" 나이: "+age;
+	}
+}
+class Student extends Human
+{
+	private String major;
+	public Student (String name, int age, String major)
+	{
+		super(name, age); //super는 반드시 첫번째 문장에 와야함.
+		this.major=major;
+		System.out.println("Student의 생성자2");
+	}
+	public void info()
+	{
+		System.out.println("이름: "+name+" 나이: "+age+" 전공: "+major);
+	}
+	/*상속받은 자식클래스라고해도 부모클래스의 private영역은 접근불가*/
+	public Student()
+	{
+		System.out.println("Student의 생성자1");
+	}
+	public void setMajor(String major)
+	{
+		this.major=major;
+	}
+	public String getMajor()
+	{
+		return major;
+	}
+	public String toString()
+	{
+		return super.toString()+" 전공: "+major; //부모의 toString호출
+	}	//메소드 오버로딩
+	public String getProfession()
+	{
+		return "학생";
+	}
+}
+class  HumanTestPublic
+{
+	public static void main(String[] args) 
+	{
+		//Human h = new Human(); //부모클래스가 기본생성자를 설정하지 않으면 설정 불가.
+		/*
+		Human h1 = new Human("춘향",18);
+		Human h2 = new Human("몽룡",21);
+		System.out.println(h1);
+		추상클래스가 되었으므로 Human은 구체화 불가*/	
+		/*객체를 출력문에 표현할 때 그 클래스에 toString이 있다면 toString이
+		자동호출된다. toString이 없다면 주소값 출력*/
+		
+		Student s1 = new Student("명진", 21,"컴퓨터공학");
+		Student s2 = new Student("미현", 22,"경영학");
+		Student s3 = new Student("용준", 24,"스페인어");
+		System.out.println(s1.toString());
+		System.out.println(s2);
+		System.out.println(s3);
+
+		System.out.println("------------------------------------");
+		s1.info();
+		System.out.println(s1.getProfession());
+
+
+
+	}
+}

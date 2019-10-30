@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js
+"></script>
+<script type="text/javascript">
+$(function () {
+	var a = $("input[type=text]");//a는 배열
+	$.each(a, function(idx, item) { //item은 input태그
+		alert($(item).val());
+	});
+	
+});
+</script>
+</head>
+<body>
+	<input type="text" value="유관순"><br>
+	<input type="password"><br>
+	<input type="radio"><br>
+	<input type="checkbox"><br>
+	<input type="file"><br>
+	<input type="text" value="이순신"><br>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<문자열 처리>
+
+String - 변하지 않는 문자열 처리에 적합
+
+StringBuffer, StringBuilder - 변하는 문자열 처리에 적합
+변하는 문자열 처리를 위하여 StringBuffer를 사용하지만, 
+String에서만 가능한 기능을 사용하기 위해서는 다시 String으로
+변환해야한다. (다시 String으로 변환하려면 .toString을 사용한다)

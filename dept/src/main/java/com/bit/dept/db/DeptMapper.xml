@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dept">
+  <select id="selectinfo" resultType="deptVo">
+       select e.eno,e.ename, dname, dloc,esal, e.hiredate, wmonths, e.email 
+	from (select mgr, eno,ename,dname,dloc,nvl(sal,0)*12 esal, to_char(hiredate,'yyyy') hiredate,
+	round(months_between(sysdate,hiredate)) wmonths, email
+	from emp e, dept d
+	where d.dno = e.dno) e, emp m
+	where e.mgr = m.eno and 
+	m.ename = #{name}
+	order by wmonths desc
+  </select>
+</mapper>

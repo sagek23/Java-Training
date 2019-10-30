@@ -1,0 +1,7 @@
+연습) 정우성 고객이 주문한 주문번호, 도서번호, 도서명, 고객명, 주소, 전화, 출판사, 수량, 금액, 구매일을 출력
+
+String sql = "select onum, bnum, bname, cname, addr, tel, publisher, 
+oquantity, oamount, odate  from customer c, book b, orders owhere c.cnum = o.csnum and 
+b.bnum = o.bknum and "+fieldN+" = ?'";
+
+PrepareStatement는 value에만 해당하므로 컬럼명을 지정하지 않을 경우 ++로 넣어주어야한다.

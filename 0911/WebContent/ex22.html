@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+var myWindow;
+function proOpen() {
+	myWindow = open("","","width=300, height=200");
+}
+
+function proWrite() {
+	myWindow.document.write("<h2>추석에 먹는양 조절</h2");
+}
+</script>
+</head>
+<body>
+	<button onclick="proOpen()">창열기</button>
+	<button onclick="proWrite()">창에 내용쓰기</button>
+</body>
+</html>

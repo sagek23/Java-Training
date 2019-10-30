@@ -1,0 +1,15 @@
+class Animal
+{
+}
+class Dog extends Animal
+{
+}
+class Test1 
+{
+	public static void main(String[] args) 
+	{
+		Animal a = new Animal();
+		Dog d = new Dog();
+		System.out.println("Hello World!");
+	}
+}

@@ -1,0 +1,28 @@
+/*
+사용자에게 임의의 수 n을 입력받아 1~n까지의 3의 배수의
+합과 3의 배수의 개수를 구하여 출력하시오.
+*/
+import java.util.*;
+class  ForPrac4
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.print("임의의 수 n을 입력하시오==> ");
+		int n = sc.nextInt();
+		int sum = 0;
+		int count = 0;
+		
+		for (int i = 1; i<=n ;i++ )
+		{
+			if(i%3==0)
+			{	
+				sum = sum + i;
+				count++
+				
+				
+			}
+		}
+		System.out.println("n의 3의 배수의 합은"+sum+"이고 개수는 "+count+"이다" );
+	}
+}

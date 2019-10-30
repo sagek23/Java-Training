@@ -1,0 +1,57 @@
+// 사용자한테 문장을 입력받아 단어별 빈도수를 구하여 출력하는 프로그램 작성
+
+import java.util.Scanner;
+class WordCount2
+{
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("원하는 문장을 입력하세요(단, 영문으로 합니다.)"); 
+		String input = sc.nextLine();
+		String []word = input.split(" "); 
+		int count[] = new int[word.length];
+
+		for ( int i =0; i<word.length ; i++ ) {  	
+			for( int j =0; j<word.length; j++){  
+
+				if ( word[i].equals(word[j]) ){
+
+					count[i]++;
+
+				}
+			}
+		} 
+
+		/*
+		[hello][java][hello][korea]			word[]
+		[2]		[1]		[2]	  [1]			count[]
+
+		*/
+		String []result = new String[word.length];
+		//[][][][]
+		int count2[] = new int[word.length];
+		//[][][][]
+		int n =1; //중복되지 않는 단어를 넣을 배열. 0번째는 첫번쨰 단어가 이미 들어가있으므로 1부터 시작
+		result[0] = word[0]; //첫 단어는 검사 없이 배열에 넣음
+		count2[0] = count[0];
+		for ( int i =1; i<word.length; i++ ) {
+			int j=0;
+			for (j=0;j<i ;j++ )
+			{
+				if (word[i].equals(result[j]))
+					break; //i:1 j:0이면 같은 것이 없고 j는 증가, 1<1은 성립하지 않으므로 if문으로 넘어감. 
+			}
+			if(j==i) //1==1 이므로 다음을 실행.
+			{	result[n] = word[i];
+				count2[n] = count[i];
+				n++;
+			}
+
+		} 
+		for (int i=0; i<n;i++ )
+		{
+			System.out.println( result[i]+"==>"+count2[i] );
+		}
+		
+		
+	}
+}

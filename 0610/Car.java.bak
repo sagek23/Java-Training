@@ -1,0 +1,36 @@
+interface Movable
+{
+	public abstract void speedUp(int mount);
+	public abstract void speedDown(int mount);
+	final int speed=100;
+}
+class Car implements Movable
+{
+	public void speedUp()
+	{
+		int mount = 100;
+	}
+
+	public void speedDown()
+	{
+		int mount = 50;
+	}
+
+	public void TurnLeft()
+	{
+		System.out.println("Turn Left");
+	}
+	public void TurnRight()
+	{
+		System.out.println("Turn Right");
+	}
+}
+
+class CarTest
+{
+	public static void main(String[] args) 
+	{
+		
+	}
+
+}

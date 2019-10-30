@@ -1,0 +1,15 @@
+class ShortCutOperation2 
+{
+	public static void main(String[] args) 
+	{
+		int a = 7;
+		int b = 8;
+
+		if (a>10 && ++b>10)
+			System.out.println("Yes");
+		else
+			System.out.println("No");
+		
+		System.out.println(b);
+	}
+}

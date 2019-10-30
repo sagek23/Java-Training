@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		var arr = [{dno:100, dname:'기획부', dloc:'인천'},
+				{dno:200, dname:'영업부', dloc:'서울'},
+				{dno:300, dname:'개발1부', dloc:'제주도'},
+				{dno:400, dname:'개발2부', dloc:'서울'}];
+	
+		document.getElementById("btn").onclick = function() {
+		var str = "";
+		str += "<table>";
+		str += "<tr>";
+		str += "<td>부서번호</td>";			
+		str += "<td>부서이름</td>";			
+		str += "<td>부서위치</td>";			
+		str += "</tr>";
+		for(var i=0;i<arr.length;i++)
+		{	
+			str += "<tr>";	
+			var d = arr[i];
+			str += "<td>"+d.dno+"</td>"
+			str += "<td>"+d.dname+"</td>"
+			str += "<td>"+d.dloc+"</td>"
+			str += "</tr>";
+		}
+		str += "</table>";
+		
+			document.getElementById("result").innerHTML = str;
+		}
+	}
+</script>
+</head>
+<body>
+<h2>부서목록</h2>
+<div id="result"></div>
+<button id="btn">부서목록 출력</button>
+</body>
+</html>

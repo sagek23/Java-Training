@@ -1,0 +1,87 @@
+class Bird
+{
+	private String type;
+	private boolean canFly;
+	private boolean canEat;
+	private String color;
+
+	public Bird(String type, boolean canFly, boolean canEat, String color)
+	{
+		this.type=type;
+		this.canFly=canFly;
+		this.canEat=canEat;
+		this.color=color;
+	}
+
+	public Bird()
+	{
+		
+	}
+	public void setType(String type)
+	{
+		this.type=type;
+	}
+	
+	public void setCanFly(boolean canFly)
+	{
+		this.canFly=canFly;
+	}
+	public void setCanEat(boolean canEat)
+	{
+		this.canEat=canEat;
+	}
+	public void setColor(String color)
+	{
+		this.color=color;
+	}
+	public String getType()
+	{
+		return type;
+	}
+	public boolean getCanFly()
+	{
+		return canFly;
+	}
+	public boolean getCanEat()
+	{
+		return canEat;
+	}
+	public String getColor()
+	{
+		return color;
+	}
+	public void fly()
+	{
+		if (canFly==true)
+			System.out.println(color+" "+type+"이/가 "+"훨~훨~");
+		else
+			System.out.println(color+" "+type+"이/가 "+"날 수 없다");
+	}	
+	//public String toString()
+	//{
+	//	return "종류: "+ type + " 비행: "+canFly+" 식용: "+canEat+" 색: "+color;
+	//}
+	public String toString()
+	{
+		String r = "종류: "+type;
+		if(canFly)
+			r = r+ ", 날 수 있음";
+		else 
+			r = r+ ", 날 수 없음";
+		
+		return "종류: "+ type + " 비행: "+canFly+" 식용: "+canEat+" 색: "+color;
+		
+	}
+}
+class  BirdTest
+{
+	public static void main(String[] args) 
+	{
+		Bird b1 = new Bird("독수리", true, false, "고동색");
+		Bird b2 = new Bird("참새", true, false, "갈색");
+		System.out.println(b1);
+		System.out.println(b2);
+		b1.fly();
+		b2.fly();
+	}
+}

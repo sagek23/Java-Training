@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = function () {
+		var li = document.getElementsByTagName("li");
+		for(var i=0;i<li.length;i++)
+		{
+			li[i].ondblclick = function () {
+				//alert("이벤트발생");
+				var ul = document.getElementById("ul");
+				ul.removeChild(this);
+			} 
+		}
+	
+}
+</script>
+</head>
+<body>
+	<ul id="ul">
+		<li>사과</li>	
+		<li>포도</li>	
+		<li>수박</li>	
+		<li>복숭아</li>	
+		<li>망고</li>	
+	</ul>
+</body>
+</html>

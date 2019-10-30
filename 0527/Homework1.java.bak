@@ -1,0 +1,135 @@
+
+import java.util.Scanner;
+class Homework1
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		
+		String win = "창", bad = "침";
+		int sol=0,sol2=0;
+		String sol3="",sol4="",sol5="",sol6="";
+		String yn="";
+		boolean b = true;
+		while(b){
+			System.out.println("◑▲◑ 심리 테스트 ◐▼◐");
+			System.out.println();
+		while(true)
+		{
+			try
+			{				
+					System.out.println("심리테스트1)");
+					System.out.println("아름다운 숲속길을 걷고 있었습니다.");
+					System.out.println("저앞에 예쁜 열쇠가 떨어져 있습니다.");
+					System.out.println("당신이라면 줍겠습니까? 줍지않겠습니까?");
+					System.out.println();
+					System.out.println("1. 줍는다.   2.줍지않는다.(1,2)");
+					sol = sc.nextInt(); 
+					
+					if(sol==1||sol==2) break;
+					else System.out.println("다시 입력하십시오");
+					
+						
+			}catch (Exception e)
+			{
+					System.out.println("숫자를 입력하십시오.");
+					sol = sc.nextLine();
+			}
+		}
+				
+
+			
+			while(true){
+				System.out.println("심리테스트2)");
+				System.out.println("길을 지나다보니 저기 앞에");
+				System.out.println("왕자나 공주가 살법한 으리으리한 성이 있습니다.");
+				System.out.println("성의 담장의 높이는 얼마였으면 좋겠습니까?(m)");
+				sol2 = sc.nextInt();
+				if(sol2<0)System.out.println("다시 입력하십시오.");
+				else break;
+			}
+			System.out.println("심리테스트3)");
+			System.out.println("성안으로 들어가보니 방이 많습니다.");
+			System.out.println("첫번째 방문을 열어보니 이방은 온통");
+			System.out.println("하얀색으로 되어있는 방이였습니다.가구나 벽지도 하얀색입니다.");
+			System.out.println("이방을 처음봤을때 자신의 느낌을 적어보세요.");
+			sol3 = sc.next();
+
+			while(true){
+				System.out.println("심리테스트4)");
+				System.out.println("자. 다음방문을 열어보겠습니다.");
+				System.out.println("이번방에는 창문과 침대,옷장이 있습니다.");
+				System.out.println("당신은 창문도 열어보고싶고, 침대에 누워도보고싶고, 옷장도 열어보고싶습니다.");
+				System.out.println("어느 것을 먼저 하시겠습니까?");
+				sol4 = sc.nextLine();
+				System.out.println();
+				if(sol4.contains("창문") || sol4.contains("침대") || sol4.contains("옷장"))
+					break;
+				else System.out.println("다시 입력하십시오");
+					
+			}
+			System.out.println("심리테스트5)");
+			System.out.println("자. 그럼 창문을 열었다고 가정해 보겠습니다.");
+			System.out.println("창문을 열어보니 밖에 수영장이 보입니다.");
+			System.out.println("그 수영장에는 당신의 애인이 수영을하고 있습니다.");
+			System.out.println("이때 당신의 행동은??");
+			sol5 = sc.nextLine();
+			System.out.println();
+
+			System.out.println("심리테스트6)");
+			System.out.println("음 그럼 마지막 방을 열어보겟습니다.");
+			System.out.println("마지막방은 엄청 어둡고 캄캄한 방입니다.");
+			System.out.println("어디선가 커피향도나는것 같군요.");
+			System.out.println("이방에 들어선 당신의 행동은??");
+			sol6 = sc.nextLine();
+			System.out.println();
+
+			System.out.println("");
+			System.out.println("======심리테스크 결과를 알려드리겠습니다.======");
+			if(sol<2) System.out.println("열쇠를 주운 당신은 살면서 요행을 바라고있군요ㅋㅋㅋㅋ");
+			else System.out.println("열쇠를 줍지 않은 당신은 살면서 요행을 바라고있지않고 착실히 살아가는군요.");
+			System.out.println("----------------------------------------------------------------------");			
+			System.out.println("당신이 선택한 성의 높이는 "+sol2+"m로 군요.");
+			System.out.println("그 높이가 당신의이성에 대한 자존심의 높이입니다.");
+			System.out.println("----------------------------------------------------------------------");
+			System.out.println("하얀색 방의 들어간 당신의 느낀 "+sol3+"은(는)");
+			System.out.println("당신이 세상에 처음태어났을때 느낀 느낌입니다.");
+			System.out.println("----------------------------------------------------------------------");			
+			if(win.equals(sol4.charAt(0)))
+				System.out.println("창문을 선택한 당신은 배우자를 고를때 그사람의 배경을 보는 것 같군요.");
+			else if(bad.equals(sol4.charAt(1)))
+				System.out.println("침대를 선택한 당신은 배우자를 고를때 그사람의 재산을 보는 것 같군요.");
+			else
+				System.out.println("옷장을 선택한 당신은 배우자를 고를때 그사람 자체를 보는 것 같군요.");
+			
+			System.out.println("----------------------------------------------------------------------");
+			if(sol5.contains("아무것도"))
+				System.out.println("당신은 배우자가 외도를 하였을 때 아무것도 하지 않을 것 같군요.");
+			else if(sol5.contains("같이"))
+				System.out.println("당신은 배우자가 외도를 하였을 때 같이 외도 할것 같군요.");
+			else if(sol5.contains("부른"))
+				System.out.println("당신은 배우자가 외도를 하였을 때 다시 돌아오도록 할것 같군요.");			
+			else if(sol5.contains("지켜"))
+				System.out.println("당신은 배우자가 외도를 하였을 때 어떻게 하는지 지켜볼 것 같군요.");
+			
+			System.out.println("----------------------------------------------------------------------");
+			if(sol6.contains("아무것도") || sol6.contains("향") )
+				System.out.println("당신은 당신의 죽음이 앞에 왔을때 순순히 받아들일 것 같습니다.");
+			else{
+				System.out.println("당신은 당신의 죽음이 앞에 왔을때 부인하며 죽음을 받아들이지 않을 것 같습니다.");
+				}
+			System.out.println("----------------------------------------------------------------------");
+			while(true){
+				System.out.println("다시 하시겠습니까??(y/n)");
+				yn = sc.next();
+				if(yn.equals("n")){
+						b=false;
+						break;
+					}else if(yn.equals("y")){
+						b=true;
+						break;
+					}else{}
+			}
+		}//while문 닫기.
+	}
+}

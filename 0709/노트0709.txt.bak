@@ -1,0 +1,10 @@
+identifying relationship - 식별관계:
+부모의 주식별자가 자식의 주식별자가 된다
+
+non-identifying relationship - 비식별관계:
+부모의 주식별자가 자식의 일반속성이 된다. 
+
+
+Indentifying Type(식별관계) : 부모 테이블의 PK = 자식 테이블의 PK, FK
+
+Non-Indentifying Type(비식별관계) : 부모 테이블의 PK = 자식 테이블의 FK (PK는 아님)

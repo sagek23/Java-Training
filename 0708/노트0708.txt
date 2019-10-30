@@ -1,0 +1,338 @@
+뷰(view)
+실제로는 존재하지않는 가상의 논리적인 테이블
+검색에 자주 필요한 복잡한 sql을 미리 이름을 정하여 만들어두면
+검색시에 편리학 사용할 수 있다.
+
+<뷰를 만드는 방법>
+create view 뷰이름 as select~
+
+연습)주문한 내역의 상세정보 출력
+주문번호, 고객번호, 고객이름, 도서번호, 도서명, 판매가격, 주문일
+
+
+create view bookstore
+as select orderkid, c.custid, name, b.bookid, bookname, saleprice, orderdate
+from orders o, customer c, book b where b.bookid = o.bookid and c.custid =
+o.custid;
+
+<뷰 삭제>
+drop view 뷰이름
+
+연습) 200번 부서에 근무하는 직원의 사원번호, 주소, 입사일, 부서번호를
+출력하는 view를 생성
+
+create or replace view dept200  
+as select eno, ename, addr, hiredate, d.dno from
+dept d, emp e where d.dno = e.dno and e.dno = 200 with check option;
+
+
+
+create view 뷰이름 as select~  with check option; /조건 체크
+create view 뷰이름  as select~ with read only;  /읽기만 가능
+
+<뷰>
+자주 사용하는 복잡한 sql문을 미리 이름을 정하여
+붙여놓는 가상의 논리적인 테이블을 말한다. 
+
+-뷰를 통해 insert, update, delete가 가능하다.
+-뷰 생성시에 조건식에 맞는 데이터만 추가되도록 하려면
+create view 뷰이름 as select~  with check option;
+
+-읽기만 가능한 뷰 생성
+create view 뷰이름  as select~ with read only;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+
+<인덱스>
+자료의 검색을 빠르게 하기위하여 색인(인덱스)을 만들어 두는 것을 말한다.
+
+-자료의 추가, 삭제, 수정이 일어난 경우는 인덱스를 다시 갱신해주어야한다.
+
+<인덱스 만드는 방법>
+create index 인덱스명 on 테이블명(컬럼명)
+
+연습) 사원의 이름에 인덱스를 생성하고 검색
+create index emplo on emp(ename);
+select * from emp where ename = '정우성';
+
+<인덱스의 갱신>
+alter index 인덱스명 rebuild
+
+연습) 사원테이블에 새로운 레코드를 추가하고 인덱스를 갱신
+insert into emp values(5000, '정우성', '서울', 400, 50, '대리',
+'111', '2017/07/08', 1007, 300, 'wsjeong@bit.com');
+alter index emplo rebuild;
+
+<인덱스>
+조건식에 자주 사용하는 컬럼에 인덱스를 생성해두면
+검색속도를 향상시킬 수 있다.
+그러나 추가,삭제,수정이 빈번한 경우라면
+오히려 성능저하의 요인이 될 수 있다.
+
+<시스템 뷰, 데이터 사전>
+오라클이 가지고 있는 내장 뷰
+
+user_objects;
+사용자 계정이 생성한 모든 객체(테이블, 인덱스, 뷰)를 가지고 있는 뷰
+
+user_tables;
+사용자 계정이 생성한 모든 테으블의 정보를 가지고 있는 뷰
+
+user_contraints;
+사용자 계정이 생성한 제약의 정보를 가지고있는 뷰
+
+
+연습) 각각의 데이터 사전이 어떤 컬럼으로 구성되어 있는지 확인
+desc user_objects;
+desc user_tables;
+desc user_constraints;
+
+연습) 사용자가 생성한 모든 테이블 이름을 출력
+select table_name from user_tables;
+
+연습) 사용자가 생성한 모든 제약이름, 제약의 종류, 제약이 
+설정된 테이블을 확인
+select constraint_name, constraint_type, 
+table_name from user_constraints;
+
+------------------------------------------------------------------------------------
+<프로시저>
+create or replace procedure deleteEmp
+(Peno in number)
+as begin
+	delete emp where Peno = eno;
+end;
+/
+
+연습) 사원번호, 사원이름, 부서번호를 매개변수로 전달받아 사원을 추가하는 
+프로시저를 생성하고 프로시저를 통해 레코드를 추가
+
+book.bookid%type -> book 테이블의 bookid와 같은 타입을
+사용하겠다는 것
+
+create or replace procedure insertEmp(
+Peno in number,
+Pename in varchar2,
+Pdno in number)
+as 
+begin
+	insert into emp(eno, ename, dno)
+	values(Peno, Pename, Pdno);
+end;
+/
+
+<오류의 확인>
+show errors;
+
+exec insertemp(2000,'홍길동',200);
+
+연습) 사원번호를 매개변수로 전달받아 해당 사원을 삭제하는 프로시저
+생성하고 호출
+create or replace procedure deleteEmp
+(Peno in number)
+as begin
+	delete emp where eno = Peno;
+end;
+/
+exec deleteEmp(2000);
+
+연습) 도서번호, 도서명, 가격을 매개변수로 전달받아 해당 도서정보를
+수정하는 프로시저를 생성하고 호출
+
+create or replace procedure updateBook(
+	pBookid in number,
+	pBookname in varchar2,
+	pPrice in number)
+as
+begin
+	update book set bookname=pBookname, price=pPrice 
+	where bookid=pBookid;
+end;
+/
+
+exec updateBook(11, '재미없는 자바', 9000);
+
+create or replace procedure insertOrUpdate(
+	pDno dept.dno%type,
+	pDname varchar2,
+	pDloc dept.dloc%type
+	)
+as
+	pCount number;
+begin
+	select count(*) into pCount from dept
+	 where dno like pDno;
+	if pCount != 0 then
+	 update dept set dname = pDname,
+	 dloc = pDloc where dno = pDno;
+	else
+	 insert into dept(dno,dname, dloc)
+	 values(pDno, pDname, pDloc);
+	end if;
+end;
+/
+
+exec insertOrUpdate(100, '기획부', '서울');
+
+연습) 고객의 아이디를 매개변수로 전달받아 해당 고객의 총 구매액을
+반환하는 프로시저 생성하고 호출
+
+create or replace procedure totalPrice(
+  pCustid number,
+  totalP out number)
+as
+begin
+  select sum(saleprice) into totalP from orders where custid =
+  pCustid;
+end;
+/
+
+select serveoutput on;
+declare
+  total number;
+begin
+  totalPrice(1, total);
+  dbms_output.put_line('총 구매액: ' || total);
+end;
+/
+
+연습) 고객의 id를 매개변수로 전달받아 그 고객이 구매한 모든 도서명을
+출력하는 프로시저를  생성하고 호출.
+
+create or replace procedure listBook
+(
+	id number
+)
+as
+ bname book.bookname%type; 
+ cursor allbook is select bookname from book b, orders o 
+ where o.bookid = b.bookid and custid = id;
+begin
+ open allbook;
+ loop
+  fetch allbook into bname;
+  exit when allbook%notfound;
+  dbms_output.put_line(bname);
+ end loop;
+ close allbook;
+end;
+/
+
+set serveroutput on;
+ exec listBook;
+
+연습) 가격을 매개변수로 전달받아 그 가격보다 높은 가격의 도서를 
+구매한 고객명, 도서명을 출력
+
+create or replace procedure listPrice
+(
+	bprice book.price%type
+)
+as
+	cname customer.name%type;
+	bname book.bookname%type;
+	cursor pbook is select name,bookname from orders o,
+	book b, customer c where o.bookid = b.bookid and o.custid =
+	c.custid and price >= bprice;
+	
+begin
+	open pbook;
+	loop
+		fetch pbook into cname, bname;
+		exit when pbook%notfound;
+		dbms_output.put_line(cname ||'=>'|| bname);
+	end loop;
+	close pbook;
+end;
+/
+
+set serveroutput on;
+ exec listPrice;
+
+
+연습) 모든 고객의 정보(고객id, 고객이름, 주소, 전화)를 출력하는 프로시저를
+생성하고 호출
+ create or replace procedure 
+ pr_customer
+ as
+ 	info customer%rowtype;
+ 	cursor c is select * from customer; 	
+ begin
+ 	open c;
+ 	loop
+	 	fetch c into info;
+	 	exit when c%notfound;
+ 		dbms_output.put_line(info.custid || ' ' ||
+					 		 info.name || ' ' ||
+					 		 info.address||' ' ||
+					 		 info.phone); 	
+ 	end loop;
+ 	close c;
+ end;
+ /
+
+
+ set serveroutput on;
+ exec pr_customer;
+
+
+ create table book_log(
+ 	bookid_l number,
+	bookname_l varchar2(40),
+	publisher_1 varchar2(40),
+	price_l number);
+
+create or replace trigger afterInsertBook
+after insert on book for each row
+declare
+begin
+	insert into book_log
+	  values(:new.bookid, :new.bookname, :new.publisher,
+	  :new.price);
+	dbms_output.put_line('삽입 투플을 book_log 테이블에 백업');
+end;
+
+insert into book values(13, '스포츠 과학 1', '이상미디어', 25000);
+select * from book where bookid = 13;
+select * from book_log where bookid_l = 13;
+
+연습) 고객을 삭제하기 전에 해당 고객의 구매내역을 모두 삭제하는 트리거 생성
+create or replace trigger beforeDeleteCustomer
+before delete on customer for each row
+declare
+begin
+	delete orders where custid = :old.custid;
+	  
+	dbms_output.put_line(:old.custid ||'주문내역 모두 삭제');
+end;
+/
+
+
+create table 상품(
+	상품번호 number primary key,
+	상품명 varchar2(50),
+	수량 number,
+	가격 number
+	);
+
+insert into 상품 values(100, '수박', 10, 13000);
+insert into 상품 values(200, '사과', 10, 8500);
+insert into 상품 values(300, '참외', 10, 6500);
+
+create table 입고(
+	입고번호 number primary key,
+	상품번호 number references 상품(상품번호),
+	수량 number,
+	입고일 date
+	);
+
+연습) "입고"테이블에 레코드가 추가되면 상품 테이블에 
+추가된 수량만큼 상품의 수량을 수정하는 트리거를 생성하고 결과룰 확인
+create or replace trigger afterInsertWearhousing
+after insert on 상품 for each row
+declare
+begin
+	update 상품 set 수량 =  수량+ :new.수량 where 상품번호 = :new.상품번호;
+	dbms_output.put_line(:new.상품번호 ||'수량 업데이트');
+end;
+/
+
+insert into 입고 values(10,100, 10, sysdate);

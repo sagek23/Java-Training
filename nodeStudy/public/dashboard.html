@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {font-size: 10px;}
+        div #contentarea {width: 1000px;}
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function(){
+            $.getJSON("/blogList", function(data){
+                $.each(data,function(idx,item){
+                    var tr = $("<tr></tr>");
+                    var td1 = $("<td></td>").html(item.title);
+                    var td2 = $("<td></td>").html(item.saved_at);
+                    var td3 = $("<td></td>");
+
+                    var a1 = $("<a></a>").html("View").attr("href","blogUpdate.html?id="+item._id);
+                    var a2 = $("<a></a>").html("Update").attr("href","blogUpdate.html?id="+item._id);
+                    var a3 = $("<a href='#'></a>").html("Delete").attr("id", item._id);
+                    $(td3).append(a1,"&nbsp;&nbsp;",a2,"&nbsp;&nbsp;",a3);
+                    $(tr).append(td1,td2,td3);
+                    $("#tb").append(tr);
+
+                    $(a3).click(function(){
+                        var id = $(this).attr("id");
+                        var re = confirm("정말로 삭제할까요?");
+                        if(re==true)
+                        {
+                            var data = {id:id};
+                            $.getJSON("/blogDelete",data,function(){
+                                if(re=="1")
+                                {
+                                    location.href = "dashboard.html";
+                                }
+                            })
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="contentarea">
+        <div id="innercontentarea">
+            <h1>Dashboard</h1>
+            <br>
+            <br>
+            <p align="right"><a href="blogInsert.html">Write</a></p>
+            <table class="articles" cellpadding="0" cellspacing="0">
+                <thead>
+                    <th width="50%">Title</td>
+                    <th width="30%">Created at</td>
+                    <th width="*">Action</td>
+                </thead>
+                <tbody id="tb"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

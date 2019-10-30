@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("btn").onclick = function() {
+			var kr = eval(document.getElementById("kr").value);
+			var en = eval(document.getElementById("en").value);
+			var math = eval(document.getElementById("math").value);
+			var total = kr+en+math;
+			var avrg =  total/3;	
+			var str = "";
+			if(avrg>=60)
+				str = "합격";
+			else
+				str = "불합격"
+			document.getElementById("total").innerHTML = total;
+			document.getElementById("avrg").innerHTML = avrg;
+			document.getElementById("str").innerHTML = str;
+		}
+	}
+</script>
+</head>
+<body>
+	<h2>점수계산</h2>
+	이름:<input type="text" id="name"><br>
+	국어:<input type="number" id="kr"><br>
+	영어:<input type="number" id="en"><br>
+	수학:<input type="number" id="math"><br>
+	<button id="btn">계산</button><br>
+	총점: <span id="total"></span><br>
+	평균: <span id="avrg"></span><br>
+	합격여부: <span id="str"></span>
+</body>
+</html>

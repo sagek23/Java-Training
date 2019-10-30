@@ -1,0 +1,25 @@
+웹프로그래밍을 위해 톰캣 설치 버전7
+이클립스 - new -other-servr
+jsp
+
+Multi Thread Programming
+가능하면 두개이상의 객체에게 특정 일처리를 공평하게 실행하도록
+하려면 멀티스레드 프로그래밍을 한다.
+
+-자바는 멀티스레드 프로그래밍을 위하여 thread클래스와
+runnable인터페이스를 제공한다. 
+
+-thread클래스를 이용하는 방법
+thread클래스를 상속하고 run메소드를 재정의하여 공평하게 실행하고자
+하는 내용을 기술한다.
+
+thread를 가동하기 위해서는 start메소드를 호출한다.
+
+
+-runnable 인터페이스를 이용하는 방법
+runnable 인터페이스를 구현하여 run메소드를 재정의하여
+공평하게 동작시키고자하는 내용을 기술한다.
+그러나 이 경우는 start()를 직접호출할 수 있다.
+thread객체로 생성 후 start를 호출해야한다. 
+
+포트번호 찾기 C:\app\BITSC-7\product\18.0.0\dbhomeXE\network\admin\listener.ora

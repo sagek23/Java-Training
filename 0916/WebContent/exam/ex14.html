@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = function () {
+	var counter_a = document.getElementById("counter_a");
+	var counter_b = document.getElementById("counter_b");
+	
+	function add(a) {
+		a.innerHTML = eval(a.innerHTML)+1;
+	}
+	
+	document.getElementById("btn_a").onclick = function () {
+		add(counter_a);
+	}
+	
+	document.getElementById("btn_b").onclick = function () {
+		add(counter_b);
+	}
+}
+</script>
+</head>
+<body>
+	<button id="btn_a">ButtonA</button>
+	<button id="btn_b">ButtonB</button>
+	<h1>Button A - <span id="counter_a">0</span> </h1>
+	<h1>Button B - <span id="counter_b">0</span> </h1>
+</body>
+</html>

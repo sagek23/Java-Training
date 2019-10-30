@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = function () {
+	document.getElementById("btnAdd").onclick = function () {
+		var name = document.getElementById("name");
+		var kr = document.getElementById("kr");
+		var en = document.getElementById("en");
+		var ma = document.getElementById("ma");
+		
+		var td1 = document.getElementById("td1");
+		var td2 = document.getElementById("td2");
+		var td3 = document.getElementById("td3");
+		var td4 = document.getElementById("td4");		
+		
+		td1.appendChild(name);
+		td2.appendChild(kr);
+		td3.appendChild(en);
+		td4.appendChild(ma);
+	}
+}
+</script>
+</head>
+<body>
+	이름: <input type="text" id="name"><br>
+	국어: <input type="text" id="kr"><br>
+	영어: <input type="text" id="en"><br>
+	수학: <input type="text" id="ma"><br>
+	<button id="btnAdd">추가</button>
+	<hr>
+	<table border="1" width="80%">
+		<tr>
+			<td id="td1">이름</td>
+			<td id="td2">국어</td>
+			<td id="td3">영어</td>
+			<td id="td4">수학</td>
+		</tr>
+	</table>
+</body>
+</html>

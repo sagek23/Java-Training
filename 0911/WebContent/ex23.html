@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	setInterval(function () {
+		var today = new Date();
+		var year = today.getFullYear();
+		var month = today.getMonth()+1;
+		var date = today.getDate();
+		var h = today.getHours();
+		var m = today.getMinutes();
+		var s	= today.getSeconds();
+		var str = year+"년 "+month+"월 "+date+"일 "+h+"시 "+m+"분	"+s+"초";
+		$("#now").html(str);
+	}, 1000);
+});
+</script>
+</head>
+<body>
+<div id="now"></div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+//함수 만들기
+	var pro = function (a, b) {
+		var r = a+b;
+		return "더하기 결과: "+r;
+	}
+	function hello(name) {
+		return "안녕 "+name;
+	}
+
+	window.onload = function () {
+		var r1 = pro(2,3);
+		var r2 = hello('홍길동');
+		document.getElementById("result1").innerHTML = r1;
+		document.getElementById("result2").innerHTML = r2;
+	}
+</script>
+</head>
+<body>
+	<div id="result1"></div>
+	<div id="result2"></div>
+</body>
+</html>

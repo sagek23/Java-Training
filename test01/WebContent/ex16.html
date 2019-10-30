@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = function () {
+	
+	var result = document.getElementById("result");
+	document.getElementById("btn").onclick = function name() {
+		
+	var arr = [{no:100, name:'축구공', price:45000, qty:50, fname:'ball1.jpg'},
+		{no:200, name:'유니폼', price:85000, qty:50, fname:'cloth1.jpg'},
+		{no:300, name:'축구화', price:125000, qty:50, fname:'shoe1.jpg'},
+		{no:400, name:'스타킹', price:15000, qty:50, fname:'stock1.jpg'}];
+		
+		arr.forEach(function(item, index) {
+		var tr = document.createElement("tr");
+		var td1= document.createElement("td");
+		var td2= document.createElement("td");
+		var td3= document.createElement("td");
+		var td4= document.createElement("td");
+		var td5= document.createElement("td");
+		var tx1 = document.createTextNode(item.no);
+		var tx2 = document.createTextNode(item.name);
+		var tx3 = document.createTextNode(item.price);
+		var tx4 = document.createTextNode(item.qty);
+		var tx5 = document.createTextNode(item.fname);
+		
+		td1.appendChild(tx1);
+		td2.appendChild(tx2);
+		td3.appendChild(tx3);
+		td4.appendChild(tx4);
+		td5.appendChild(tx5);
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		tr.appendChild(td4);
+		tr.appendChild(td5);
+		
+		result.appendChild(tr);
+		});
+
+	}
+	
+}
+	
+</script>
+</head>
+<body>
+<h2>상품목록</h2>
+<table id="result">
+	<tr>
+		<td>상품번호</td>
+		<td>상품명</td>
+		<td>가격</td>
+		<td>수량</td>
+		<td>이미지</td>
+	</tr>
+</table>
+<button id="btn">출력</button>	
+</body>
+</html>

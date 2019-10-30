@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	var arr = [{no:100, name:'축구공', price:45000, qty:50, fname:'ball1.jpg'},
+		{no:200, name:'유니폼', price:85000, qty:50, fname:'cloth1.jpg'},
+		{no:300, name:'축구화', price:125000, qty:50, fname:'shoe1.jpg'},
+		{no:400, name:'스타킹', price:15000, qty:50, fname:'stock1.jpg'}];
+	var newsArr = [
+		{url:"https://news.naver.com/main/read.nhn?mode=LPOD&mid=sec&oid=001&aid=0011078395&isYeonhapFlash=Y&rc=N", text:"중국인 여행객 소시지서 아프리카돼지열병 유전자 발견"},
+		{url:"https://news.naver.com/main/read.nhn?mode=LPOD&mid=sec&oid=001&aid=0011078259&isYeonhapFlash=Y&rc=N", text:"이재명 지사 항소심 당선무효형 선고에 쌍방 상고"},
+		{url:"https://news.naver.com/main/read.nhn?mode=LPOD&mid=sec&oid=001&aid=0011078374&isYeonhapFlash=Y&rc=N", text:"'일본여행 취소 국민 43.8% 국내여행 전환'"},
+		{url:"https://news.naver.com/main/read.nhn?mode=LPOD&mid=sec&oid=001&aid=0011078310&isYeonhapFlash=Y&rc=N", text:"경찰, 장제원 아들 통신기록 분석…관련자 모두 소환"},
+		{url:"https://news.naver.com/main/read.nhn?mode=LPOD&mid=sec&oid=001&aid=0011078001&isYeonhapFlash=Y&rc=N",text:"日정부, 한국의 WTO 제소에 '규칙 위반 아니다' 주장"}
+				];
+$(function () {
+	//뉴스 출력 타이머
+	//$("#news").html(newsArr[4].text);
+	//$("#news").attr("href",newsArr[4].text);
+	
+	var j = 0;
+	setInterval(function () {
+		var n = newsArr[j];
+		$("#news").attr('href',n.url );
+		$("#news").html(n.text);
+		j++;
+		if(j>=newsArr.length)
+		{
+			j=0;
+		}
+		
+	},2000)
+	
+	//상품출력 타이머
+	var i = 0;
+	$("#fname").attr('src', arr[arr.length-1].fname);
+	$("#no").text(arr[arr.length-1].no);
+	$("#name").text(arr[arr.length-1].name);
+	$("#price").text(arr[arr.length-1].price);
+	$("#qty").text(arr[arr.length-1].qty);
+	setInterval(function () {
+		
+		var g= arr[i];
+		$("#fname").attr('src', g.fname);
+		$("#no").text(g.no);
+		$("#name").text(g.name);
+		$("#price").text(g.price);
+		$("#qty").text(g.qty);
+		i++;
+		if(i>=arr.length)
+		{
+			i=0;
+		}
+	}, 1000);
+});
+		
+</script>
+</head>
+<body>
+<h2>상품목록</h2>
+연합뉴스: <a href="https://news.naver.com/main/read.nhn?mode=LPOD&mid=sec&oid=001&aid=0011078001&isYeonhapFlash=Y&rc=N" id="news">日정부, 한국의 WTO 제소에 '규칙 위반 아니다' 주장</a><br>
+<table>
+	<tr>
+		<td>
+		<img id="fname" src="" width="100" height="100">
+		</td>
+		<td>
+		상품번호:<span id="no"></span><br>
+		상품명:<span id="name"></span><br>
+		가격:<span id="price"></span><br>
+		수량:<span id="qty"></span><br>
+		</td>
+	</tr>
+</table>
+	
+</body>
+</html>

@@ -1,0 +1,51 @@
+/*
+조건1. "눌러보세요"라는 버튼을 포함하는 창을 만든다.
+조건2. 버튼을 누르면 "안녕하세요"라고 출력.
+조건3. 창을 만들기 위해서는 JFrame을 상속받는다.
+조건4. 버튼을 눌렀을 때 이벤트 처리를 위해서는
+java.awt.evetnt.ActionLister 인터페이스를 이용.
+조건5. 우리가 만들어야할 클래스는 JFrame이면서 
+ActionListner이어야 한다.
+조건6. 버튼에 이벤트를 등록하기 위해서는  
+addActionListner(this)메소드를 이용.
+*/
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+class MyAction implements ActionListener
+{
+	public void actionPerformed(ActionEvent e)
+	{
+		JButton btn = (JButton)e.getSource();
+			if (btn.getText().equals("눌러보세요"))
+				btn.setText("안녕하세요");
+			else
+				btn.setText("눌러보세요");
+		}
+
+}
+
+class ButtonFrame extends JFrame
+{
+	public ButtonFrame()
+	{
+		this.setTitle("버튼");
+		this.setSize(100,100);
+		this.setVisible(true);
+		this.setLayout(new FlowLayout());
+		JButton btn1 = new JButton("눌러보세요");
+
+		this.addActionListener(new MyAction());
+		this.add(btn1);
+		
+	}
+}
+class  ButtonTest
+{
+	public static void main(String[] args) 
+	{
+		ButtonFrame b = new ButtonFrame();
+		
+	}
+}

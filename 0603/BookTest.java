@@ -1,0 +1,51 @@
+class Book
+{
+	private String title;
+	private String author;
+	public Book (String t, String a)
+	{
+		title = t;
+		author = a;
+	}
+	public Book ()
+	{
+		title = "헨젤과 그레텔";
+		author = "그림형제";
+	}
+	public Book(String t)
+	{
+		title = t;
+		author = "그림형제";
+	}
+	public void setAuthor(String a)
+	{
+		author = a;		
+	}
+	public void setTitle(String t)
+	{
+		title = t;
+	}
+	public String getAuthor()
+	{
+		return author;
+	}
+	public String getTitle()
+	{
+		return title;
+	}
+}
+class  BookTest
+{
+	public static void main(String[] args) 
+	{
+		Book b1 = new Book();
+		Book b2 = new Book("자바", "김지선");
+		Book b3  = new Book("잭과 콩나무");
+
+		System.out.println(b1.getTitle());
+		System.out.println(b2.getTitle());
+		System.out.println(b3.getAuthor());
+
+		
+	}
+}

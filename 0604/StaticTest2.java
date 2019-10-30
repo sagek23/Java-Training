@@ -1,0 +1,27 @@
+class Student
+{
+	String name;
+	int age;
+	String room;
+	public Student(String name, int age, String room)
+	{
+		this.name = name;
+		this.room = room;
+		this.age = age;
+	}
+	public String toString()
+	{
+		return "이름: "+name+" 나이: "+age+" 강의실: "+room;
+	}
+}
+class StaticTest2 
+{
+	public static void main(String[] args) 
+	{
+		Student s1 = new Student("이선정", 20, "2강의실");
+		Student s2  = new Student("김지선", 21, "2강의실");
+
+		System.out.println(s1);
+		System.out.println(s2);
+	}
+}

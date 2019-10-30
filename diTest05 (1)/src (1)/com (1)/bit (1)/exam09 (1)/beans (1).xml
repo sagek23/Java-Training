@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="articleDao" class="com.bit.exam09.ArticleDao"/>
+	<bean id="wa" class="com.bit.exam09.WriteArticleServiceImp" autowire="byName">
+	</bean> <!-- WriteArticleServiceImp의 멤버변수의 이름과 똑같은 객체가 있으면 찾아서 의존관계생성. -->
+</beans>

@@ -1,0 +1,23 @@
+/*프로그램 실행시 두개의 정수를 전달받아 나누기한 결과를 출력하는 프로그램
+ex) java DivTest 10 5 
+*/
+import java.util.*;
+class  DivTest2
+{
+	public static void main(String[] args) 
+	{
+		try{
+		Scanner sc = new Scanner(System.in);
+		int a, b, r;
+		a = Integer.parseInt(args[0]);
+		b = Integer.parseInt(args[1]);
+		r=a/b;
+		System.out.println("결과: "+r);
+		}
+		catch(NumberFormatException e)//좁은범위의 예외처리 클래스가 먼저 온다.
+		{System.out.println("반드시 아라비아 숫자로 입력하시오");}
+		catch(Exception e)
+		{System.out.println("두수가 1이상의 정수인지 확인하시오");}
+		finally{System.out.println("작업종료");}
+	}
+}

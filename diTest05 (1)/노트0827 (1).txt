@@ -1,0 +1,6 @@
+<ref local="articleDao"/> 
+이미있는 객체 참조
+
+<property name="articleDao">
+클래스의 멤버이름
+setter에의해 의존관계 형성

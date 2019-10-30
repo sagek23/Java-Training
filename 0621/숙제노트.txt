@@ -1,0 +1,37 @@
+create user c##bit1236 identified by bit1236; 
+
+grant connect, resource, dba to c##bit1236;
+
+
+ - 상영관등록, 수정, 삭제, 검색
+ - 고객등록, 수정, 삭제, 검색
+ - 예약등록, 수정, 삭제, 검색
+
+
+상영관(상영관번호 pk,영화제목,가격,좌석수)
+고객(고객번호 pk,이름,주소)
+예약(예약번호 pk,상영관번호 fk,고객번호 fk,좌석번호,날짜)
+
+create table theater (tnum number primary key, mtitle varchar(20) not null, price number not null, scapacity number not null );
+
+
+
+create table customer (cnum number primary key, cname varchar(20) not null, addr varchar(20) not null);
+
+create table booking (bnum number primary key, thnum number not null references theater(tnum), csnum number not null references customer(cnum), snum number not null, bdate date);
+
+
+create sequence seq_cus; 고객용
+create sequence seq_book; 예약용
+
+
+update customer set cname = '권희영', addr = '분당' where cnum = 1;
+
+
+<날짜구하기>
+select sysdate from dual;
+
+dual은 가상의 테이블. 
+
+select sysdate+1 from dual;
+다음날 구하기

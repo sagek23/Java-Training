@@ -1,0 +1,67 @@
+<멀티스레드 프로그래밍>
+가능하면 두개이상의 객체가 특정한 동작을 동시에 번갈아가면서
+동작하도록 하기 위한 개념
+
+-자바는 멀티스레드 프로그래밍을 위하여 Thread클래스와 
+Runnable인터페이스를 제공. 
+
+-Thread클래스를 이용하는 방법은 Thread클래스를 상속받고
+run을 재정의하여 공평하게 수행해야 할 일을 기술하고 Thread를
+가동시키기 위하여 start메소드를 호출한다.
+
+-Runnable인터페이스를 이용하는 방법은 Runnable인터페이스를
+구현하고 run 메소드를 재정의하여 공평하게 수행하고자하는 내용을
+기술한다.
+그러나 Runnable 인터페이스를 구현한 객체로 직접 start를 호출할 수 없고
+Thread객체를 통해서 start를 호출해야한다.
+
+------------------------------------------------------------------------------------
+
+-응급성에 따라 Thread의 우선순위를 부여할 수 있다
+setPriority(값);
+
+값은 정수이며 다음과 같은 상수가 설정되어있다.
+MIN_PRIORITY	  최저우선순위
+MAX_PRIORITY	  최고우선순위
+NORM_PRIORITY   보통우선순위
+
+-최고우선순위를 부여했다고해서 반드시 그 Thread가 가장 먼저 작업을 
+완료하는 것이 보장되지는 않는다. 다만 그 작업이 급한 것임을 요청하는 
+것이다.
+
+------------------------------------------------------------------------------------
+	//Date now = new Date(); Date는 old버전. 
+	//int hh = now.getHours(); 현재 시각에서 시간만 가져오기
+			
+	//Calendar now = Calendar.getInstance(); 현재시각 출력
+	//now.get(Calendar.get(Calendar.HOUR_OF_DAY)) 현재 시각에서 시간만 출력
+	//now.get(Calendar.get(Calendar.SECOND)) 현재 시각에서 초만 출력
+	//GregorianCalendar now = new GregorianCalendar();
+	//now.get(Calendar.HOUR_OF_DAY);
+	//now.get(now.SECOND);
+------------------------------------------------------------------------------------
+<임계영역: critical section>
+두개이상의 스레드가 공유하는 공유자원 중에 한번에 
+하나의 스레드에만 접근을 허용하는 영역/
+
+synchronized 동기화
+
+공유자원에 접근하는 메소드 앞에 synchronized키워드를 붙여 
+한번에 하나의 쓰레드에게만 접근하도록 프로그래밍
+
+메소드의 일부분에 synchronized 블럭으로 표현할 수도 있다.
+
+public void 메소드명()
+{
+	명령어1;
+	명령어2;
+	....
+	synchronized{
+	명령어a;
+	...
+	}
+}
+
+public synchronized void 메소드명()
+{
+}

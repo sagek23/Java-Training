@@ -1,0 +1,34 @@
+답변형 게시판
+	board테이블에 다음의 칼럼을 추가합니다.
+	
+	b_ref		서로 관련있는 글을 그룹하기 위한 칼럼
+				부모글	: 글번호와 동일하게 설정
+				답글		: 부모글의 b_ref와 동일하게 설정
+			
+	b_level		답글의 깊이를 위한 칼럼
+					답글에 대해 또 답글을 작성할 수 있도록
+					
+				부모글	: 0
+				답글		: 부모글의 b_level+1
+				
+	b_step		서로 관련있는 글일때
+					글을 출력하기 위한 순서를 위한 칼럼
+					
+				부모글 :	0 
+				답글:		이미 달려 있는 답글들의 b_step을 1씩증가
+						나는 부모들의 b_step+1로설정
+					
+alter table board add b_ref number;
+alter table board add b_level number;
+alter table board add b_step number;
+
+
+no	title		b_ref			b_level		b_step
+1	머하노?		1				0			0
+2	목요일입니다.	2				0			0
+3	프로젝트 잘되?	3				0			0
+
+4	ffff		2				1			2
+5	aaaa		2				1			1
+
+

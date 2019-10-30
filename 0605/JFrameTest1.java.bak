@@ -1,0 +1,11 @@
+import javax.swing.*;
+class JFrameTest1 
+{
+	public static void main(String[] args) 
+	{
+		JFrame f1 = new JFrame("자바 교실");
+		//400,300
+		f1.setSize(300,400);
+		f1.setVisible(true);
+	}
+}
